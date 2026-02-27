@@ -77,6 +77,9 @@ try
     builder.Services.AddScoped<TokenService>();
     builder.Services.AddScoped<AuditService>();
     builder.Services.AddScoped<InputSanitizer>();
+    builder.Services.AddScoped<backend.Services.Payments.StripePaymentProviderPlaceholder>();
+    builder.Services.AddScoped<backend.Services.Payments.PaymobPaymentProviderPlaceholder>();
+    builder.Services.AddScoped<backend.Services.Payments.PaymentProviderFactory>();
 
     // ── CORS (from env) ─────────────────────────────────────────────────────
     var allowedOrigins = (builder.Configuration["Cors:AllowedOrigins"]
