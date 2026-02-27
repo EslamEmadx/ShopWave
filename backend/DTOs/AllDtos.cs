@@ -31,7 +31,7 @@ public record UpdateCartDto(int Quantity);
 public record WishlistItemDto(int Id, int ProductId, string ProductName, string ProductImage, decimal Price, int Stock);
 
 // Review DTOs
-public record ReviewDto(int Id, int Rating, string Comment, DateTime CreatedAt, string Username, int UserId);
+public record ReviewDto(int Id, int Rating, string Comment, DateTime CreatedAt, string Username, int UserId, string Status, bool IsVerified);
 public record CreateReviewDto(int ProductId, int Rating, string Comment);
 
 // Order DTOs

@@ -103,3 +103,75 @@ Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
 2026-02-28 00:57:43.833 +02:00 [INF] HTTP OPTIONS /api/auth/profile responded 204 in 0.1271 ms
 2026-02-28 00:57:44.033 +02:00 [INF] HTTP GET /api/auth/profile responded 200 in 175.4759 ms
 2026-02-28 00:57:44.048 +02:00 [INF] HTTP GET /api/auth/profile responded 200 in 12.1986 ms
+2026-02-28 01:14:51.215 +02:00 [INF] Starting ShopWave API...
+2026-02-28 01:14:55.872 +02:00 [INF] Now listening on: http://localhost:5106
+2026-02-28 01:14:55.882 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-02-28 01:14:55.886 +02:00 [INF] Hosting environment: Development
+2026-02-28 01:14:55.890 +02:00 [INF] Content root path: C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend
+2026-02-28 01:15:44.536 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 144.9052 ms
+2026-02-28 01:15:44.536 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 145.0290 ms
+2026-02-28 01:15:44.536 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 144.8731 ms
+2026-02-28 01:15:44.536 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 145.0042 ms
+2026-02-28 01:15:44.536 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 144.9456 ms
+2026-02-28 01:15:44.536 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 144.9459 ms
+2026-02-28 01:15:44.665 +02:00 [INF] HTTP OPTIONS /api/cart responded 204 in 7.4512 ms
+2026-02-28 01:15:44.665 +02:00 [INF] HTTP OPTIONS /api/wishlist responded 204 in 7.7108 ms
+2026-02-28 01:15:46.438 +02:00 [INF] HTTP GET /api/categories responded 200 in 1737.1203 ms
+2026-02-28 01:15:46.438 +02:00 [INF] HTTP GET /api/cart responded 200 in 1595.8165 ms
+2026-02-28 01:15:46.439 +02:00 [INF] HTTP GET /api/wishlist responded 200 in 1549.6945 ms
+2026-02-28 01:15:46.501 +02:00 [INF] HTTP GET /api/products responded 200 in 1766.4906 ms
+2026-02-28 01:15:46.979 +02:00 [INF] HTTP GET /api/products responded 200 in 471.0091 ms
+2026-02-28 01:15:46.979 +02:00 [INF] HTTP GET /api/categories responded 200 in 545.5023 ms
+2026-02-28 01:15:47.001 +02:00 [INF] HTTP GET /api/categories responded 200 in 10.6264 ms
+2026-02-28 01:15:47.001 +02:00 [INF] HTTP GET /api/products responded 200 in 19.2982 ms
+2026-02-28 01:15:48.013 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.1493 ms
+2026-02-28 01:15:48.013 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.0857 ms
+2026-02-28 01:15:48.035 +02:00 [INF] HTTP GET /api/wishlist responded 200 in 24.5885 ms
+2026-02-28 01:15:48.050 +02:00 [INF] HTTP GET /api/categories responded 200 in 38.4446 ms
+2026-02-28 01:15:48.060 +02:00 [INF] HTTP GET /api/wishlist responded 200 in 18.6199 ms
+2026-02-28 01:15:48.069 +02:00 [INF] HTTP GET /api/categories responded 200 in 14.5440 ms
+2026-02-28 01:15:48.384 +02:00 [INF] HTTP GET /api/products responded 200 in 205.3888 ms
+2026-02-28 01:15:48.415 +02:00 [INF] HTTP GET /api/products responded 200 in 21.1305 ms
+2026-02-28 01:15:51.576 +02:00 [INF] HTTP OPTIONS /api/cart responded 204 in 0.3217 ms
+2026-02-28 01:15:53.140 +02:00 [INF] HTTP POST /api/cart responded 200 in 1528.6279 ms
+2026-02-28 01:15:53.188 +02:00 [INF] HTTP GET /api/cart responded 200 in 17.4403 ms
+2026-02-28 01:16:15.112 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.6107 ms
+2026-02-28 01:16:16.114 +02:00 [INF] HTTP POST /api/orders responded 200 in 962.2317 ms
+2026-02-28 01:16:16.155 +02:00 [INF] HTTP OPTIONS /api/cart responded 204 in 0.5251 ms
+2026-02-28 01:16:16.296 +02:00 [INF] HTTP DELETE /api/cart responded 200 in 109.1240 ms
+2026-02-28 01:16:16.339 +02:00 [INF] HTTP OPTIONS /api/payment/create-checkout-session responded 204 in 0.4591 ms
+2026-02-28 01:16:16.694 +02:00 [INF] HTTP POST /api/payment/create-checkout-session responded 200 in 330.8522 ms
+2026-02-28 01:16:17.652 +02:00 [INF] HTTP GET /api/cart responded 200 in 43.7931 ms
+2026-02-28 01:16:28.462 +02:00 [INF] HTTP OPTIONS /api/wishlist responded 204 in 0.2774 ms
+2026-02-28 01:16:28.463 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 0.2858 ms
+2026-02-28 01:16:28.464 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.1423 ms
+2026-02-28 01:16:28.466 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 0.1806 ms
+2026-02-28 01:16:28.467 +02:00 [INF] HTTP OPTIONS /api/wishlist responded 204 in 0.1216 ms
+2026-02-28 01:16:28.468 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.1579 ms
+2026-02-28 01:16:28.536 +02:00 [INF] HTTP GET /api/wishlist responded 200 in 43.6496 ms
+2026-02-28 01:16:28.563 +02:00 [INF] HTTP GET /api/categories responded 200 in 38.3116 ms
+2026-02-28 01:16:28.590 +02:00 [INF] HTTP GET /api/products responded 200 in 36.2212 ms
+2026-02-28 01:16:28.590 +02:00 [INF] HTTP GET /api/categories responded 200 in 8.0960 ms
+2026-02-28 01:16:28.610 +02:00 [INF] HTTP GET /api/wishlist responded 200 in 7.3164 ms
+2026-02-28 01:16:28.637 +02:00 [INF] HTTP GET /api/products responded 200 in 16.7548 ms
+2026-02-28 01:16:30.640 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 2.2411 ms
+2026-02-28 01:16:30.641 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.1133 ms
+2026-02-28 01:16:31.023 +02:00 [INF] HTTP GET /api/orders responded 200 in 348.5540 ms
+2026-02-28 01:16:31.037 +02:00 [INF] HTTP GET /api/orders responded 200 in 12.5109 ms
+2026-02-28 01:16:33.895 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.1211 ms
+2026-02-28 01:16:33.897 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 0.1300 ms
+2026-02-28 01:16:33.898 +02:00 [INF] HTTP OPTIONS /api/wishlist responded 204 in 0.1042 ms
+2026-02-28 01:16:33.898 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.0819 ms
+2026-02-28 01:16:33.900 +02:00 [INF] HTTP OPTIONS /api/wishlist responded 204 in 0.0639 ms
+2026-02-28 01:16:33.900 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 0.0713 ms
+2026-02-28 01:16:33.999 +02:00 [INF] HTTP GET /api/products responded 200 in 69.0504 ms
+2026-02-28 01:16:34.001 +02:00 [INF] HTTP GET /api/categories responded 200 in 36.1601 ms
+2026-02-28 01:16:34.041 +02:00 [INF] HTTP GET /api/wishlist responded 200 in 46.9145 ms
+2026-02-28 01:16:34.053 +02:00 [INF] HTTP GET /api/products responded 200 in 25.9855 ms
+2026-02-28 01:16:34.064 +02:00 [INF] HTTP GET /api/wishlist responded 200 in 15.8771 ms
+2026-02-28 01:16:34.138 +02:00 [INF] HTTP GET /api/categories responded 200 in 42.5425 ms
+2026-02-28 01:16:36.080 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.2267 ms
+2026-02-28 01:16:36.083 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.4487 ms
+2026-02-28 01:16:36.192 +02:00 [INF] HTTP GET /api/orders responded 200 in 55.0820 ms
+2026-02-28 01:16:36.204 +02:00 [INF] HTTP GET /api/orders responded 200 in 10.3336 ms
+2026-02-28 01:17:54.644 +02:00 [INF] Application is shutting down...
