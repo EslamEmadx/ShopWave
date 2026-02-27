@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using backend.DTOs;
+using Microsoft.Extensions.Logging;
 
 namespace backend.Controllers;
 
@@ -12,7 +13,13 @@ namespace backend.Controllers;
 public class AdminController : ControllerBase
 {
     private readonly AppDbContext _db;
-    public AdminController(AppDbContext db) => _db = db;
+    private readonly ILogger<AdminController> _logger;
+
+    public AdminController(AppDbContext db, ILogger<AdminController> logger)
+    {
+        _db = db;
+        _logger = logger;
+    }
 
     [HttpGet("dashboard")]
     public async Task<ActionResult<DashboardDto>> GetDashboard()
@@ -29,26 +36,34 @@ public class AdminController : ControllerBase
             totalUsers  = await _db.Users.CountAsync();
             totalProducts = await _db.Products.CountAsync();
         }
-        catch { /* counts default to 0 */ }
+        catch (Exception ex)
+        {
+             _logger.LogError(ex, "Failed to load aggregate counts for dashboard.");
+        }
 
         // --- Recent orders ---
         var recentOrders = new List<RecentOrderDto>();
         try
         {
             recentOrders = await _db.Orders
+                .AsNoTracking()
                 .Include(o => o.User)
                 .OrderByDescending(o => o.CreatedAt)
                 .Take(10)
                 .Select(o => new RecentOrderDto(o.Id, o.User.Username, o.TotalAmount, o.Status, o.CreatedAt))
                 .ToListAsync();
         }
-        catch { }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to load recent orders for dashboard.");
+        }
 
         // --- Top products ---
         var topProducts = new List<TopProductDto>();
         try
         {
             topProducts = await _db.OrderItems
+                .AsNoTracking()
                 .GroupBy(oi => oi.ProductId)
                 .Select(g => new
                 {
@@ -62,13 +77,17 @@ public class AdminController : ControllerBase
                       (x, p) => new TopProductDto(p.Id, p.Name, p.ImageUrl, x.TotalSold, x.Revenue))
                 .ToListAsync();
         }
-        catch { }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to load top products for dashboard.");
+        }
 
-        // --- Monthly sales (fixed: project to anonymous type in SQL, then map in memory) ---
+        // --- Monthly sales ---
         var monthlySales = new List<MonthlySalesDto>();
         try
         {
             var raw = await _db.Orders
+                .AsNoTracking()
                 .Where(o => o.CreatedAt >= DateTime.UtcNow.AddMonths(-6))
                 .GroupBy(o => new { o.CreatedAt.Year, o.CreatedAt.Month })
                 .Select(g => new
@@ -85,7 +104,10 @@ public class AdminController : ControllerBase
                 .Select(r => new MonthlySalesDto($"{r.Year}-{r.Month:D2}", r.Revenue, r.Orders))
                 .ToList();
         }
-        catch { }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to load monthly sales for dashboard.");
+        }
 
         return Ok(new DashboardDto(totalRevenue, totalOrders, totalUsers, totalProducts,
             recentOrders, topProducts, monthlySales));

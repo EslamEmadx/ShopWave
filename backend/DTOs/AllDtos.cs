@@ -3,7 +3,7 @@ namespace backend.DTOs;
 // Auth DTOs
 public record RegisterDto(string Username, string Email, string Password);
 public record LoginDto(string Email, string Password);
-public record AuthResponseDto(string Token, string Username, string Email, string Role, int UserId);
+public record AuthResponseDto(string AccessToken, string Username, string Email, string Role, int UserId);
 public record UpdateProfileDto(string? Username, string? Phone, string? Address, string? City);
 
 // Product DTOs

@@ -26,7 +26,7 @@ public class ProductsController : ControllerBase
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 12)
     {
-        var query = _db.Products.Include(p => p.Category).AsQueryable();
+        var query = _db.Products.AsNoTracking().Include(p => p.Category).AsQueryable();
 
         if (!string.IsNullOrEmpty(search))
             query = query.Where(p => p.Name.Contains(search) || p.Description.Contains(search));

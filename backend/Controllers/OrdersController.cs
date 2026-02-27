@@ -83,7 +83,7 @@ public class OrdersController : ControllerBase
         var userId = GetUserId();
         var isAdmin = User.IsInRole("Admin");
 
-        var query = _db.Orders.Include(o => o.OrderItems).ThenInclude(oi => oi.Product).AsQueryable();
+        var query = _db.Orders.AsNoTracking().Include(o => o.OrderItems).ThenInclude(oi => oi.Product).AsQueryable();
         if (!isAdmin) query = query.Where(o => o.UserId == userId);
 
         var orders = await query.OrderByDescending(o => o.CreatedAt)

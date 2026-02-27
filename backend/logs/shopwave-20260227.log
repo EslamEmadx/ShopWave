@@ -1,0 +1,475 @@
+2026-02-27 22:31:02.827 +02:00 [INF] Starting ShopWave API...
+2026-02-27 22:31:06.222 +02:00 [INF] Now listening on: http://localhost:5106
+2026-02-27 22:31:06.233 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-02-27 22:31:06.238 +02:00 [INF] Hosting environment: Development
+2026-02-27 22:31:06.240 +02:00 [INF] Content root path: C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend
+2026-02-27 22:32:23.139 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 77.4238 ms
+2026-02-27 22:32:23.139 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 77.3024 ms
+2026-02-27 22:32:23.139 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 77.2804 ms
+2026-02-27 22:32:23.139 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 77.4193 ms
+2026-02-27 22:32:23.139 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 77.3110 ms
+2026-02-27 22:32:23.139 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 77.3842 ms
+2026-02-27 22:32:23.215 +02:00 [INF] HTTP OPTIONS /api/cart responded 204 in 1.9393 ms
+2026-02-27 22:32:23.215 +02:00 [INF] HTTP OPTIONS /api/wishlist responded 204 in 1.9403 ms
+2026-02-27 22:32:23.600 +02:00 [INF] HTTP GET /api/cart responded 401 in 347.3241 ms
+2026-02-27 22:32:23.600 +02:00 [INF] HTTP GET /api/wishlist responded 401 in 335.1347 ms
+2026-02-27 22:32:24.328 +02:00 [INF] HTTP GET /api/categories responded 200 in 1110.0917 ms
+2026-02-27 22:32:24.434 +02:00 [INF] HTTP GET /api/products responded 200 in 1218.5764 ms
+2026-02-27 22:32:24.544 +02:00 [INF] HTTP GET /api/categories responded 200 in 227.1035 ms
+2026-02-27 22:32:24.559 +02:00 [INF] HTTP GET /api/products responded 200 in 113.0228 ms
+2026-02-27 22:32:24.580 +02:00 [INF] HTTP GET /api/categories responded 200 in 32.9891 ms
+2026-02-27 22:32:24.608 +02:00 [INF] HTTP GET /api/products responded 200 in 48.9488 ms
+2026-02-27 22:32:26.549 +02:00 [INF] HTTP OPTIONS /api/admin/dashboard responded 204 in 0.5612 ms
+2026-02-27 22:32:26.549 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.1361 ms
+2026-02-27 22:32:26.551 +02:00 [INF] HTTP OPTIONS /api/coupons responded 204 in 0.1272 ms
+2026-02-27 22:32:26.551 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.0839 ms
+2026-02-27 22:32:26.552 +02:00 [INF] HTTP OPTIONS /api/admin/dashboard responded 204 in 0.2974 ms
+2026-02-27 22:32:26.552 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.1032 ms
+2026-02-27 22:32:26.564 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.0857 ms
+2026-02-27 22:32:26.574 +02:00 [INF] HTTP OPTIONS /api/coupons responded 204 in 0.3808 ms
+2026-02-27 22:32:26.601 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 10.4488 ms
+2026-02-27 22:32:26.602 +02:00 [INF] HTTP GET /api/orders responded 401 in 1.9683 ms
+2026-02-27 22:32:26.609 +02:00 [INF] HTTP GET /api/categories responded 200 in 28.1964 ms
+2026-02-27 22:32:26.611 +02:00 [INF] HTTP GET /api/coupons responded 401 in 1.9404 ms
+2026-02-27 22:32:26.659 +02:00 [INF] HTTP GET /api/categories responded 200 in 8.3839 ms
+2026-02-27 22:32:26.679 +02:00 [INF] HTTP GET /api/products responded 200 in 63.0678 ms
+2026-02-27 22:32:26.699 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 0.9261 ms
+2026-02-27 22:32:26.699 +02:00 [INF] HTTP GET /api/orders responded 401 in 0.9077 ms
+2026-02-27 22:32:26.701 +02:00 [INF] HTTP GET /api/coupons responded 401 in 0.7073 ms
+2026-02-27 22:32:26.714 +02:00 [INF] HTTP GET /api/products responded 200 in 14.1293 ms
+2026-02-27 22:36:45.634 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 14.6323 ms
+2026-02-27 22:36:45.634 +02:00 [INF] HTTP OPTIONS /api/cart responded 204 in 14.6323 ms
+2026-02-27 22:36:45.634 +02:00 [INF] HTTP OPTIONS /api/coupons responded 204 in 14.6069 ms
+2026-02-27 22:36:45.634 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 14.6399 ms
+2026-02-27 22:36:45.634 +02:00 [INF] HTTP OPTIONS /api/admin/dashboard responded 204 in 14.6286 ms
+2026-02-27 22:36:45.634 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 14.6105 ms
+2026-02-27 22:36:45.675 +02:00 [INF] HTTP OPTIONS /api/admin/dashboard responded 204 in 0.3498 ms
+2026-02-27 22:36:45.678 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.2244 ms
+2026-02-27 22:36:45.683 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.6331 ms
+2026-02-27 22:36:45.690 +02:00 [INF] HTTP OPTIONS /api/coupons responded 204 in 0.0900 ms
+2026-02-27 22:36:45.702 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 2.0561 ms
+2026-02-27 22:36:45.768 +02:00 [INF] HTTP GET /api/cart responded 401 in 53.2781 ms
+2026-02-27 22:36:45.768 +02:00 [INF] HTTP GET /api/orders responded 401 in 35.3818 ms
+2026-02-27 22:36:45.768 +02:00 [INF] HTTP GET /api/coupons responded 401 in 44.0784 ms
+2026-02-27 22:36:45.768 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 22.8339 ms
+2026-02-27 22:36:45.810 +02:00 [INF] HTTP GET /api/orders responded 401 in 1.0445 ms
+2026-02-27 22:36:45.814 +02:00 [INF] HTTP GET /api/coupons responded 401 in 2.2648 ms
+2026-02-27 22:36:45.820 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 1.9386 ms
+2026-02-27 22:36:46.297 +02:00 [INF] HTTP GET /api/categories responded 200 in 588.0441 ms
+2026-02-27 22:36:46.339 +02:00 [INF] HTTP GET /api/categories responded 200 in 36.1076 ms
+2026-02-27 22:36:46.352 +02:00 [INF] HTTP GET /api/products responded 200 in 601.7878 ms
+2026-02-27 22:36:46.368 +02:00 [INF] HTTP GET /api/products responded 200 in 12.1656 ms
+2026-02-27 22:36:50.317 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.8848 ms
+2026-02-27 22:36:50.317 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 1.1310 ms
+2026-02-27 22:36:50.481 +02:00 [INF] HTTP OPTIONS /api/wishlist responded 204 in 0.0581 ms
+2026-02-27 22:36:50.481 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.1966 ms
+2026-02-27 22:36:50.483 +02:00 [INF] HTTP GET /api/cart responded 401 in 0.9939 ms
+2026-02-27 22:36:50.567 +02:00 [INF] HTTP GET /api/categories responded 200 in 251.9010 ms
+2026-02-27 22:36:50.591 +02:00 [INF] HTTP GET /api/categories responded 200 in 19.9971 ms
+2026-02-27 22:36:50.623 +02:00 [INF] HTTP GET /api/wishlist responded 401 in 3.6233 ms
+2026-02-27 22:36:50.627 +02:00 [INF] HTTP GET /api/categories responded 200 in 21.6161 ms
+2026-02-27 22:36:50.705 +02:00 [INF] HTTP GET /api/products responded 200 in 198.5281 ms
+2026-02-27 22:36:50.743 +02:00 [INF] HTTP GET /api/products responded 200 in 32.6249 ms
+2026-02-27 22:36:50.773 +02:00 [INF] HTTP GET /api/products responded 200 in 26.0108 ms
+2026-02-27 22:36:52.376 +02:00 [INF] HTTP OPTIONS /api/admin/dashboard responded 204 in 0.1459 ms
+2026-02-27 22:36:52.377 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.0682 ms
+2026-02-27 22:36:52.377 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.0708 ms
+2026-02-27 22:36:52.379 +02:00 [INF] HTTP OPTIONS /api/coupons responded 204 in 1.1388 ms
+2026-02-27 22:36:52.380 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 1.5525 ms
+2026-02-27 22:36:52.385 +02:00 [INF] HTTP OPTIONS /api/admin/dashboard responded 204 in 0.2511 ms
+2026-02-27 22:36:52.409 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.1152 ms
+2026-02-27 22:36:52.424 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.1312 ms
+2026-02-27 22:36:52.442 +02:00 [INF] HTTP OPTIONS /api/coupons responded 204 in 0.0798 ms
+2026-02-27 22:36:52.457 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 0.2727 ms
+2026-02-27 22:36:52.471 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 5.5134 ms
+2026-02-27 22:36:52.477 +02:00 [INF] HTTP GET /api/orders responded 401 in 1.3354 ms
+2026-02-27 22:36:52.495 +02:00 [INF] HTTP GET /api/coupons responded 401 in 0.7360 ms
+2026-02-27 22:36:52.524 +02:00 [INF] HTTP GET /api/products responded 200 in 40.5376 ms
+2026-02-27 22:36:52.540 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 3.8593 ms
+2026-02-27 22:36:52.552 +02:00 [INF] HTTP GET /api/orders responded 401 in 1.4031 ms
+2026-02-27 22:36:52.556 +02:00 [INF] HTTP GET /api/products responded 200 in 30.0024 ms
+2026-02-27 22:36:52.560 +02:00 [INF] HTTP GET /api/categories responded 200 in 54.1034 ms
+2026-02-27 22:36:52.570 +02:00 [INF] HTTP GET /api/coupons responded 401 in 8.1930 ms
+2026-02-27 22:36:52.587 +02:00 [INF] HTTP GET /api/categories responded 200 in 8.6827 ms
+2026-02-27 22:37:20.538 +02:00 [INF] HTTP OPTIONS /api/wishlist responded 204 in 0.0926 ms
+2026-02-27 22:37:20.539 +02:00 [INF] HTTP OPTIONS /api/wishlist responded 204 in 0.0431 ms
+2026-02-27 22:37:20.558 +02:00 [INF] HTTP GET /api/wishlist responded 401 in 1.5057 ms
+2026-02-27 22:37:20.574 +02:00 [INF] HTTP GET /api/wishlist responded 401 in 0.5080 ms
+2026-02-27 22:37:21.371 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 0.0605 ms
+2026-02-27 22:37:21.373 +02:00 [INF] HTTP GET /api/wishlist responded 401 in 0.6663 ms
+2026-02-27 22:37:21.374 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.0400 ms
+2026-02-27 22:37:21.375 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 0.0115 ms
+2026-02-27 22:37:21.375 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.0396 ms
+2026-02-27 22:37:21.409 +02:00 [INF] HTTP GET /api/wishlist responded 401 in 0.4810 ms
+2026-02-27 22:37:21.424 +02:00 [INF] HTTP GET /api/categories responded 200 in 32.2510 ms
+2026-02-27 22:37:21.441 +02:00 [INF] HTTP GET /api/categories responded 200 in 4.8520 ms
+2026-02-27 22:37:21.459 +02:00 [INF] HTTP GET /api/products responded 200 in 31.9441 ms
+2026-02-27 22:37:21.475 +02:00 [INF] HTTP GET /api/products responded 200 in 15.0879 ms
+2026-02-27 22:42:09.826 +02:00 [INF] HTTP GET /api/products responded 200 in 1646.3447 ms
+2026-02-27 22:44:06.118 +02:00 [INF] HTTP POST /api/auth/login responded 400 in 595.1836 ms
+2026-02-27 22:44:06.707 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 9.0583 ms
+2026-02-27 22:44:06.744 +02:00 [INF] HTTP GET /api/coupons responded 401 in 0.2564 ms
+2026-02-27 22:44:06.754 +02:00 [INF] HTTP GET /api/orders responded 401 in 0.2712 ms
+2026-02-27 22:45:31.270 +02:00 [ERR] Failed executing DbCommand (128ms) [Parameters=[@dto_Email='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Address], [u].[City], [u].[CreatedAt], [u].[Email], [u].[FailedLoginCount], [u].[LockoutEnd], [u].[PasswordHash], [u].[Phone], [u].[PhoneVerified], [u].[Role], [u].[Username]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @dto_Email
+2026-02-27 22:45:31.407 +02:00 [ERR] An exception occurred while iterating over the results of a query for context type 'backend.Data.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'FailedLoginCount'.
+Invalid column name 'LockoutEnd'.
+Invalid column name 'PhoneVerified'.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:68152211-a235-4f61-a9cd-c55f391c4664
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'FailedLoginCount'.
+Invalid column name 'LockoutEnd'.
+Invalid column name 'PhoneVerified'.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:68152211-a235-4f61-a9cd-c55f391c4664
+Error Number:207,State:1,Class:16
+2026-02-27 22:45:31.432 +02:00 [ERR] HTTP POST /api/auth/login responded 500 in 626.7249 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'FailedLoginCount'.
+Invalid column name 'LockoutEnd'.
+Invalid column name 'PhoneVerified'.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at backend.Controllers.AuthController.Login(LoginDto dto) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs:line 49
+   at lambda_method60(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:68152211-a235-4f61-a9cd-c55f391c4664
+Error Number:207,State:1,Class:16
+2026-02-27 22:45:31.602 +02:00 [ERR] Unhandled exception. CorrelationId=e63b57aadedf40e5b5ed77443771fa09, Path=/api/auth/login
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'FailedLoginCount'.
+Invalid column name 'LockoutEnd'.
+Invalid column name 'PhoneVerified'.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at backend.Controllers.AuthController.Login(LoginDto dto) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs:line 49
+   at lambda_method60(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at backend.Middleware.ExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Middleware\ExceptionMiddleware.cs:line 21
+ClientConnectionId:68152211-a235-4f61-a9cd-c55f391c4664
+Error Number:207,State:1,Class:16
+2026-02-27 22:45:31.841 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 1.2425 ms
+2026-02-27 22:45:31.872 +02:00 [INF] HTTP GET /api/coupons responded 401 in 0.3387 ms
+2026-02-27 22:45:31.890 +02:00 [INF] HTTP GET /api/orders responded 401 in 0.5518 ms
+2026-02-27 22:45:50.082 +02:00 [ERR] Failed executing DbCommand (7ms) [Parameters=[@dto_Email='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Address], [u].[City], [u].[CreatedAt], [u].[Email], [u].[FailedLoginCount], [u].[LockoutEnd], [u].[PasswordHash], [u].[Phone], [u].[PhoneVerified], [u].[Role], [u].[Username]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @dto_Email
+2026-02-27 22:45:50.092 +02:00 [ERR] An exception occurred while iterating over the results of a query for context type 'backend.Data.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'FailedLoginCount'.
+Invalid column name 'LockoutEnd'.
+Invalid column name 'PhoneVerified'.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:68152211-a235-4f61-a9cd-c55f391c4664
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'FailedLoginCount'.
+Invalid column name 'LockoutEnd'.
+Invalid column name 'PhoneVerified'.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:68152211-a235-4f61-a9cd-c55f391c4664
+Error Number:207,State:1,Class:16
+2026-02-27 22:45:50.103 +02:00 [ERR] HTTP POST /api/auth/login responded 500 in 34.1620 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'FailedLoginCount'.
+Invalid column name 'LockoutEnd'.
+Invalid column name 'PhoneVerified'.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at backend.Controllers.AuthController.Login(LoginDto dto) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs:line 49
+   at lambda_method60(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:68152211-a235-4f61-a9cd-c55f391c4664
+Error Number:207,State:1,Class:16
+2026-02-27 22:45:50.118 +02:00 [ERR] Unhandled exception. CorrelationId=e33e402230384f2ebd75c1c596a61f79, Path=/api/auth/login
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'FailedLoginCount'.
+Invalid column name 'LockoutEnd'.
+Invalid column name 'PhoneVerified'.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at backend.Controllers.AuthController.Login(LoginDto dto) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs:line 49
+   at lambda_method60(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.OutputCaching.OutputCacheMiddleware.InvokeAwaited(HttpContext httpContext, IReadOnlyList`1 policies)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at backend.Middleware.ExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Middleware\ExceptionMiddleware.cs:line 21
+ClientConnectionId:68152211-a235-4f61-a9cd-c55f391c4664
+Error Number:207,State:1,Class:16
+2026-02-27 22:51:09.468 +02:00 [INF] Starting ShopWave API...
+2026-02-27 22:51:09.970 +02:00 [FTL] Application terminated unexpectedly
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Program.cs:line 151
+2026-02-27 22:51:14.999 +02:00 [INF] Starting ShopWave API...
+2026-02-27 22:51:15.165 +02:00 [FTL] Application terminated unexpectedly
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Program.cs:line 151
+2026-02-27 22:51:28.258 +02:00 [INF] Starting ShopWave API...
+2026-02-27 22:51:28.587 +02:00 [FTL] Application terminated unexpectedly
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Program.cs:line 151
+2026-02-27 22:52:05.901 +02:00 [INF] Starting ShopWave API...
+2026-02-27 22:52:08.457 +02:00 [ERR] Failed executing DbCommand (41ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Categories] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    [Description] nvarchar(max) NOT NULL,
+    [ImageUrl] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Categories] PRIMARY KEY ([Id])
+);
+2026-02-27 22:52:08.479 +02:00 [FTL] Application terminated unexpectedly
+Microsoft.Data.SqlClient.SqlException (0x80131904): There is already an object named 'Categories' in the database.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQuery(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Migrations.MigrationCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.Execute(IReadOnlyList`1 migrationCommands, IRelationalConnection connection, MigrationExecutionState executionState, Boolean beginTransaction, Boolean commitTransaction, Nullable`1 isolationLevel)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.<>c.<ExecuteNonQuery>b__3_1(DbContext _, ValueTuple`6 s)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IReadOnlyList`1 migrationCommands, IRelationalConnection connection, MigrationExecutionState executionState, Boolean commitTransaction, Nullable`1 isolationLevel)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateImplementation(DbContext context, String targetMigration, MigrationExecutionState state, Boolean useTransaction)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.<>c.<Migrate>b__20_1(DbContext c, ValueTuple`4 s)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.Migrate(DatabaseFacade databaseFacade)
+   at Program.<Main>$(String[] args) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Program.cs:line 171
+ClientConnectionId:2525f18d-0b81-4e8b-8ce0-1301e802af9f
+Error Number:2714,State:6,Class:16
+2026-02-27 22:52:42.264 +02:00 [INF] Starting ShopWave API...
+2026-02-27 22:52:44.097 +02:00 [FTL] Application terminated unexpectedly
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Program.cs:line 151
+2026-02-27 22:52:54.171 +02:00 [INF] Starting ShopWave API...
+2026-02-27 22:52:54.540 +02:00 [FTL] Application terminated unexpectedly
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Program.cs:line 151
+2026-02-27 22:53:16.317 +02:00 [INF] Starting ShopWave API...
+2026-02-27 22:53:20.552 +02:00 [INF] Now listening on: http://localhost:5106
+2026-02-27 22:53:20.555 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-02-27 22:53:20.555 +02:00 [INF] Hosting environment: Development
+2026-02-27 22:53:20.556 +02:00 [INF] Content root path: C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend
+2026-02-27 22:53:21.578 +02:00 [INF] HTTP POST /api/auth/login responded 200 in 681.9508 ms
+2026-02-27 22:53:22.193 +02:00 [INF] HTTP GET /api/admin/dashboard responded 200 in 458.6081 ms
+2026-02-27 22:53:22.240 +02:00 [INF] HTTP GET /api/coupons responded 200 in 39.1122 ms
+2026-02-27 22:53:22.343 +02:00 [INF] HTTP GET /api/orders responded 200 in 90.0205 ms
+2026-02-27 22:58:01.133 +02:00 [INF] HTTP OPTIONS /api/wishlist responded 204 in 247.0700 ms
+2026-02-27 22:58:01.133 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 246.9964 ms
+2026-02-27 22:58:01.133 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 245.7310 ms
+2026-02-27 22:58:01.133 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 247.0238 ms
+2026-02-27 22:58:01.133 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 247.0928 ms
+2026-02-27 22:58:01.133 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 247.0083 ms
+2026-02-27 22:58:01.224 +02:00 [INF] HTTP OPTIONS /api/cart responded 204 in 0.9692 ms
+2026-02-27 22:58:01.709 +02:00 [INF] HTTP GET /api/cart responded 401 in 466.0038 ms
+2026-02-27 22:58:01.709 +02:00 [INF] HTTP GET /api/wishlist responded 401 in 470.7645 ms
+2026-02-27 22:58:03.172 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.1512 ms
+2026-02-27 22:58:03.171 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.2251 ms
+2026-02-27 22:58:03.171 +02:00 [INF] HTTP OPTIONS /api/coupons responded 204 in 0.2251 ms
+2026-02-27 22:58:03.171 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 0.2251 ms
+2026-02-27 22:58:03.173 +02:00 [INF] HTTP OPTIONS /api/admin/dashboard responded 204 in 0.1115 ms
+2026-02-27 22:58:03.173 +02:00 [INF] HTTP OPTIONS /api/admin/dashboard responded 204 in 0.1115 ms
+2026-02-27 22:58:03.180 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 1.9491 ms
+2026-02-27 22:58:03.187 +02:00 [INF] HTTP OPTIONS /api/coupons responded 204 in 4.2630 ms
+2026-02-27 22:58:03.206 +02:00 [INF] HTTP GET /api/orders responded 401 in 3.8533 ms
+2026-02-27 22:58:03.209 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 8.0257 ms
+2026-02-27 22:58:03.209 +02:00 [INF] HTTP GET /api/coupons responded 401 in 8.0094 ms
+2026-02-27 22:58:03.218 +02:00 [INF] HTTP GET /api/orders responded 401 in 4.0968 ms
+2026-02-27 22:58:03.227 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 4.3103 ms
+2026-02-27 22:58:03.233 +02:00 [INF] HTTP GET /api/coupons responded 401 in 7.4593 ms
+2026-02-27 22:58:04.210 +02:00 [INF] HTTP GET /api/categories responded 200 in 1025.8778 ms
+2026-02-27 22:58:04.247 +02:00 [INF] HTTP GET /api/categories responded 200 in 33.7773 ms
+2026-02-27 22:58:04.258 +02:00 [INF] HTTP GET /api/products responded 200 in 1058.1581 ms
+2026-02-27 22:58:04.289 +02:00 [INF] HTTP GET /api/products responded 200 in 15.1425 ms
+2026-02-27 22:58:10.188 +02:00 [INF] HTTP OPTIONS /api/coupons responded 204 in 2.2755 ms
+2026-02-27 22:58:10.188 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 2.5216 ms
+2026-02-27 22:58:10.187 +02:00 [INF] HTTP OPTIONS /api/cart responded 204 in 1.7443 ms
+2026-02-27 22:58:10.187 +02:00 [INF] HTTP OPTIONS /api/admin/dashboard responded 204 in 0.5555 ms
+2026-02-27 22:58:10.187 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 1.8922 ms
+2026-02-27 22:58:10.188 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 2.0860 ms
+2026-02-27 22:58:10.204 +02:00 [INF] HTTP OPTIONS /api/admin/dashboard responded 204 in 1.7045 ms
+2026-02-27 22:58:10.216 +02:00 [INF] HTTP OPTIONS /api/orders responded 204 in 1.0367 ms
+2026-02-27 22:58:10.219 +02:00 [INF] HTTP OPTIONS /api/products responded 204 in 0.6013 ms
+2026-02-27 22:58:10.220 +02:00 [INF] HTTP OPTIONS /api/coupons responded 204 in 0.4044 ms
+2026-02-27 22:58:10.222 +02:00 [INF] HTTP OPTIONS /api/categories responded 204 in 0.3743 ms
+2026-02-27 22:58:10.239 +02:00 [INF] HTTP GET /api/cart responded 401 in 1.3512 ms
+2026-02-27 22:58:10.238 +02:00 [INF] HTTP GET /api/coupons responded 401 in 14.8333 ms
+2026-02-27 22:58:10.241 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 0.6561 ms
+2026-02-27 22:58:10.241 +02:00 [INF] HTTP GET /api/orders responded 401 in 0.9922 ms
+2026-02-27 22:58:10.255 +02:00 [INF] HTTP GET /api/coupons responded 401 in 4.7518 ms
+2026-02-27 22:58:10.257 +02:00 [INF] HTTP GET /api/orders responded 401 in 3.5349 ms
+2026-02-27 22:58:10.257 +02:00 [INF] HTTP GET /api/admin/dashboard responded 401 in 2.6084 ms
+2026-02-27 22:58:10.294 +02:00 [INF] HTTP GET /api/products responded 200 in 70.4602 ms
+2026-02-27 22:58:10.308 +02:00 [INF] HTTP GET /api/categories responded 200 in 67.6771 ms
+2026-02-27 22:58:10.321 +02:00 [INF] HTTP GET /api/categories responded 200 in 9.6615 ms
+2026-02-27 22:58:10.390 +02:00 [INF] HTTP GET /api/products responded 200 in 87.7459 ms
