@@ -3,8 +3,12 @@ namespace backend.DTOs;
 // Auth DTOs
 public record RegisterDto(string Username, string Email, string Password);
 public record LoginDto(string Email, string Password);
-public record AuthResponseDto(string AccessToken, string Username, string Email, string Role, int UserId);
+public record AuthResponseDto(string AccessToken, string RefreshToken, string Username, string Email, string Role, int UserId);
 public record UpdateProfileDto(string? Username, string? Phone, string? Address, string? City);
+public record RefreshTokenDto(string RefreshToken);
+public record RevokeTokenDto(string RefreshToken);
+public record AddressDto(int Id, string Label, string Street, string City, string State, string ZipCode, string Country, string Phone, bool IsDefault);
+public record CreateAddressDto(string Label, string Street, string City, string State, string ZipCode, string Country, string Phone, bool IsDefault);
 
 // Product DTOs
 public record ProductDto(int Id, string Name, string Description, decimal Price, decimal? OldPrice,

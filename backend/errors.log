@@ -1,0 +1,21 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(95,42): error CS0200: Property or indexer 'RefreshToken.IsRevoked' cannot be assigned to -- it is read only [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(105,9): error CS0200: Property or indexer 'RefreshToken.IsRevoked' cannot be assigned to -- it is read only [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(123,13): error CS0200: Property or indexer 'RefreshToken.IsRevoked' cannot be assigned to -- it is read only [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(177,74): warning CS8604: Possible null reference argument for parameter 'State' in 'AddressDto.AddressDto(int Id, string Label, string Street, string City, string State, string ZipCode, string Country, string Phone, bool IsDefault)'. [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(177,83): warning CS8604: Possible null reference argument for parameter 'ZipCode' in 'AddressDto.AddressDto(int Id, string Label, string Street, string City, string State, string ZipCode, string Country, string Phone, bool IsDefault)'. [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(177,105): warning CS8604: Possible null reference argument for parameter 'Phone' in 'AddressDto.AddressDto(int Id, string Label, string Street, string City, string State, string ZipCode, string Country, string Phone, bool IsDefault)'. [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+
+Build FAILED.
+
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(177,74): warning CS8604: Possible null reference argument for parameter 'State' in 'AddressDto.AddressDto(int Id, string Label, string Street, string City, string State, string ZipCode, string Country, string Phone, bool IsDefault)'. [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(177,83): warning CS8604: Possible null reference argument for parameter 'ZipCode' in 'AddressDto.AddressDto(int Id, string Label, string Street, string City, string State, string ZipCode, string Country, string Phone, bool IsDefault)'. [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(177,105): warning CS8604: Possible null reference argument for parameter 'Phone' in 'AddressDto.AddressDto(int Id, string Label, string Street, string City, string State, string ZipCode, string Country, string Phone, bool IsDefault)'. [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(95,42): error CS0200: Property or indexer 'RefreshToken.IsRevoked' cannot be assigned to -- it is read only [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(105,9): error CS0200: Property or indexer 'RefreshToken.IsRevoked' cannot be assigned to -- it is read only [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\Controllers\AuthController.cs(123,13): error CS0200: Property or indexer 'RefreshToken.IsRevoked' cannot be assigned to -- it is read only [C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\backend.csproj]
+    3 Warning(s)
+    3 Error(s)
+
+Time Elapsed 00:00:03.41

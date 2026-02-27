@@ -1,0 +1,6 @@
+2026-02-28 00:50:28.911 +02:00 [INF] Starting ShopWave API...
+2026-02-28 00:50:35.869 +02:00 [INF] Now listening on: http://localhost:5106
+2026-02-28 00:50:35.880 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-02-28 00:50:35.886 +02:00 [INF] Hosting environment: Development
+2026-02-28 00:50:35.892 +02:00 [INF] Content root path: C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend
+2026-02-28 00:50:36.630 +02:00 [INF] HTTP POST /api/auth/refresh responded 400 in 196.5564 ms
