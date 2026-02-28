@@ -100,7 +100,7 @@ public class ProductsController : ControllerBase
             p.OldPrice,
             p.ImageUrl, 
             p.Stock, 
-            p.Reviews.Where(r => r.Status == "Approved").Any() ? (decimal)p.Reviews.Where(r => r.Status == "Approved").Average(r => r.Rating) : 0, 
+            p.Reviews.Where(r => r.Status == "Approved").Any() ? (decimal)p.Reviews.Where(r => r.Status == "Approved").Average(r => r.Rating) : 0m, 
             p.Reviews.Count(r => r.Status == "Approved"), 
             p.IsFeatured, 
             p.CategoryId, 
