@@ -90,7 +90,7 @@ export default function Products() {
             </div>
 
 
-            // ... inside rendering:
+            {/* inside rendering:*/}
             {loading ? (
                 <div className="products-grid">
                     {[1, 2, 3, 4, 5, 6, 7, 8].map(i => <ProductCardSkeleton key={i} />)}

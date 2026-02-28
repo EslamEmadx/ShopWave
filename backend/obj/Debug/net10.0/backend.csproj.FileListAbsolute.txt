@@ -173,3 +173,4 @@ C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\bin\Debug\net10.0\Se
 C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\bin\Debug\net10.0\Serilog.Sinks.Debug.dll
 C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\bin\Debug\net10.0\Serilog.Sinks.File.dll
 C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\bin\Debug\net10.0\Sprache.dll
+C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend\bin\Debug\net10.0\backend.staticwebassets.runtime.json
