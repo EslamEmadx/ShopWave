@@ -214,7 +214,7 @@ public class AuthController : ControllerBase
         await _db.SaveChangesAsync();
 
         return CreatedAtAction(nameof(GetAddresses), new { }, new AddressDto(
-            address.Id, address.Label, address.Street, address.City, address.State, 
+            address.Id, address.Label, address.Street, address.City, address.State ?? "", 
             address.ZipCode, address.Country, address.Phone, address.IsDefault));
     }
 
