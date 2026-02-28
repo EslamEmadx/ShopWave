@@ -93,7 +93,7 @@ export default function ProductDetail() {
                     </div>
 
                     <div className="product-actions">
-                        <button className="btn btn-primary btn-lg" onClick={() => addToCart(product.id, qty)} disabled={product.stock === 0}>
+                        <button className="btn btn-primary btn-lg" onClick={() => addToCart(product, qty)} disabled={product.stock === 0}>
                             <FiShoppingCart /> Add to Cart
                         </button>
                         <button className={`btn btn-secondary btn-lg`} onClick={handleWishlist}>

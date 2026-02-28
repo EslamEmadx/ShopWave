@@ -11,9 +11,28 @@ export function CartProvider({ children }) {
     const { user } = useAuth();
 
     useEffect(() => {
-        if (user) loadCart();
-        else setItems([]);
+        if (user) {
+            loadCart();
+            mergeCart();
+        } else {
+            const guest = JSON.parse(localStorage.getItem('guestCart') || '[]');
+            setItems(guest);
+        }
     }, [user]);
+
+    const mergeCart = async () => {
+        const guest = JSON.parse(localStorage.getItem('guestCart') || '[]');
+        if (guest.length > 0) {
+            try {
+                for (const item of guest) {
+                    await apiAddToCart({ productId: item.productId, quantity: item.quantity });
+                }
+                localStorage.removeItem('guestCart');
+                await loadCart();
+                toast.success('Your guest cart has been merged!');
+            } catch (e) { console.error("Merge failed", e); }
+        }
+    };
 
     const loadCart = async () => {
         try {
@@ -24,8 +43,32 @@ export function CartProvider({ children }) {
         finally { setLoading(false); }
     };
 
-    const addToCart = async (productId, quantity = 1) => {
-        if (!user) { toast.error('Please login first'); return; }
+    const addToCart = async (product, quantity = 1) => {
+        const productId = typeof product === 'object' ? product.id : product;
+        if (!user) {
+            const guest = JSON.parse(localStorage.getItem('guestCart') || '[]');
+            const existing = guest.find(i => i.productId === productId);
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                // For guest cart, we store enough info to render it
+                const info = typeof product === 'object' ? product : { id: productId, name: 'Product', price: 0, imageUrl: '' };
+                guest.push({
+                    id: `guest-${Date.now()}`,
+                    productId,
+                    quantity,
+                    productName: info.name,
+                    price: info.price,
+                    productImage: info.imageUrl,
+                    stock: info.stock || 99
+                });
+            }
+            localStorage.setItem('guestCart', JSON.stringify(guest));
+            setItems([...guest]);
+            toast.success('Added to guest cart');
+            return;
+        }
+
         try {
             await apiAddToCart({ productId, quantity });
             await loadCart();
@@ -36,6 +79,16 @@ export function CartProvider({ children }) {
     };
 
     const updateQuantity = async (id, quantity) => {
+        if (!user) {
+            const guest = JSON.parse(localStorage.getItem('guestCart') || '[]');
+            const item = guest.find(i => i.id === id);
+            if (item) {
+                item.quantity = quantity;
+                localStorage.setItem('guestCart', JSON.stringify(guest));
+                setItems([...guest]);
+            }
+            return;
+        }
         try {
             await updateCartItem(id, { quantity });
             await loadCart();
@@ -43,6 +96,14 @@ export function CartProvider({ children }) {
     };
 
     const removeItem = async (id) => {
+        if (!user) {
+            const guest = JSON.parse(localStorage.getItem('guestCart') || '[]');
+            const filtered = guest.filter(i => i.id !== id);
+            localStorage.setItem('guestCart', JSON.stringify(filtered));
+            setItems(filtered);
+            toast.success('Removed from guest cart');
+            return;
+        }
         try {
             await removeCartItem(id);
             setItems(items.filter(i => i.id !== id));
@@ -51,6 +112,11 @@ export function CartProvider({ children }) {
     };
 
     const clearAll = async () => {
+        if (!user) {
+            localStorage.removeItem('guestCart');
+            setItems([]);
+            return;
+        }
         try {
             await apiClearCart();
             setItems([]);

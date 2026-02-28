@@ -61,7 +61,7 @@ export default function ProductCard({ product, wishlisted, onToggleWishlist }) {
                 </div>
                 <button
                     className="add-cart-btn"
-                    onClick={e => { e.stopPropagation(); addToCart(product.id); }}
+                    onClick={e => { e.stopPropagation(); addToCart(product); }}
                 >
                     <FiShoppingCart /> Add to Cart
                 </button>

@@ -1,11 +1,13 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FiShoppingCart, FiHeart, FiUser, FiPackage, FiLogOut, FiGrid, FiHome, FiShoppingBag } from 'react-icons/fi';
+import { FiShoppingCart, FiHeart, FiUser, FiPackage, FiLogOut, FiGrid, FiHome, FiShoppingBag, FiSun, FiMoon } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Navbar() {
     const { user, logout, isAdmin } = useAuth();
     const { count } = useCart();
+    const { theme, toggleTheme } = useTheme();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -49,6 +51,9 @@ export default function Navbar() {
                             </div>
                         </>
                     )}
+                    <button className="nav-link theme-toggle" onClick={toggleTheme}>
+                        {theme === 'dark' ? <FiSun /> : <FiMoon />}
+                    </button>
                     {!user && (
                         <Link to="/login" className={`nav-link ${isActive('/login')}`}>
                             <FiUser /> <span>Login</span>

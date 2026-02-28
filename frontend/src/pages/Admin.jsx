@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getDashboard, getOrders, getOrder, updateOrderStatus, getProducts, createProduct, deleteProduct, getCoupons, createCoupon, deleteCoupon, getCategories } from '../services/api';
-import { FiDollarSign, FiShoppingBag, FiUsers, FiPackage, FiPlus, FiTrash2, FiEdit, FiEye, FiClock, FiMapPin, FiPhone } from 'react-icons/fi';
+import { getDashboard, getOrders, getOrder, updateOrderStatus, getProducts, createProduct, deleteProduct, getCoupons, createCoupon, deleteCoupon, getCategories, getAllReviews, approveReview, rejectReview } from '../services/api';
+import { FiDollarSign, FiShoppingBag, FiUsers, FiPackage, FiPlus, FiTrash2, FiEdit, FiEye, FiClock, FiMapPin, FiPhone, FiStar, FiCheck, FiX, FiShield } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 
@@ -11,6 +11,7 @@ export default function Admin() {
     const [products, setProducts] = useState([]);
     const [coupons, setCoupons] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const [showProductModal, setShowProductModal] = useState(false);
     const [showCouponModal, setShowCouponModal] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -28,13 +29,21 @@ export default function Admin() {
     const loadData = async () => {
         setLoading(true);
         try {
-            const [d, o, p, c] = await Promise.all([getDashboard(), getOrders(), getProducts({ pageSize: 100 }), getCoupons()]);
+            const [d, o, p, c, r] = await Promise.all([
+                getDashboard(),
+                getOrders(),
+                getProducts({ pageSize: 100 }),
+                getCoupons(),
+                getAllReviews()
+            ]);
             setDashboard(d.data);
-            setOrders(o.data?.items ?? o.data ?? []);
-            setProducts(p.data?.items ?? p.data ?? []);
-            setCoupons(c.data?.items ?? c.data ?? []);
+            setOrders(o.data?.items || o.data?.Items || o.data || []);
+            setProducts(p.data?.items || p.data?.Items || p.data || []);
+            setCoupons(c.data?.items || c.data?.Items || c.data || []);
+            setReviews(r.data?.items || r.data?.Items || r.data || []);
         } catch (e) {
             console.error("Failed to load admin data", e);
+            if (e.response?.status === 403) toast.error("Access Denied: Admin only");
         }
         finally { setLoading(false); }
     };
@@ -96,8 +105,13 @@ export default function Admin() {
         } catch (e) { toast.error('Failed'); }
     };
 
-    const handleDeleteCoupon = async (id) => {
-        try { await deleteCoupon(id); loadData(); toast.success('Deleted'); } catch (e) { toast.error('Failed'); }
+    const handleReviewAction = async (id, action) => {
+        try {
+            if (action === 'approve') await approveReview(id);
+            else await rejectReview(id);
+            toast.success(`Review ${action}d`);
+            loadData();
+        } catch (e) { toast.error('Failed'); }
     };
 
     if (loading) return <div className="page container"><div className="spinner-container"><div className="spinner" /></div></div>;
@@ -114,7 +128,7 @@ export default function Admin() {
             <div className="page-header"><h1 className="page-title">Admin Dashboard</h1></div>
 
             <div className="tabs">
-                {['dashboard', 'orders', 'products', 'coupons'].map(t => (
+                {['dashboard', 'orders', 'products', 'coupons', 'reviews'].map(t => (
                     <button key={t} className={`tab ${tab === t ? 'active' : ''}`} onClick={() => setTab(t)}>
                         {t.charAt(0).toUpperCase() + t.slice(1)}
                     </button>
@@ -370,6 +384,37 @@ export default function Admin() {
                             </div>
                         )}
                     </div>
+                </div>
+            )}
+            {/* Reviews Tab */}
+            {tab === 'reviews' && (
+                <div className="card" style={{ padding: 24 }}>
+                    <h2 style={{ marginBottom: 20 }}>Reviews Moderation</h2>
+                    <table className="admin-table">
+                        <thead><tr><th>Product</th><th>User</th><th>Rating</th><th>Comment</th><th>Status</th><th>Action</th></tr></thead>
+                        <tbody>
+                            {(reviews || []).map(r => (
+                                <tr key={r.id}>
+                                    <td style={{ fontWeight: 600 }}>{r.productName}</td>
+                                    <td>{r.username}</td>
+                                    <td><div style={{ display: 'flex', alignItems: 'center', gap: 4, color: '#FFD700' }}><FiStar fill="#FFD700" size={14} /> {r.rating}</div></td>
+                                    <td><div style={{ maxWidth: 200, fontSize: '0.8rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.comment}</div></td>
+                                    <td><span className={`order-status status-${(r.status || 'Pending').toLowerCase()}`}>{r.status}</span></td>
+                                    <td>
+                                        <div style={{ display: 'flex', gap: 8 }}>
+                                            {r.status === 'Pending' && (
+                                                <>
+                                                    <button className="btn btn-sm" style={{ background: 'var(--success)', color: 'white', padding: '4px 8px' }} onClick={() => handleReviewAction(r.id, 'approve')}><FiCheck /></button>
+                                                    <button className="btn btn-sm" style={{ background: 'var(--danger)', color: 'white', padding: '4px 8px' }} onClick={() => handleReviewAction(r.id, 'reject')}><FiX /></button>
+                                                </>
+                                            )}
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    {(reviews || []).length === 0 && <p style={{ textAlign: 'center', padding: 40, color: 'var(--text-muted)' }}>No reviews to moderate</p>}
                 </div>
             )}
         </div>

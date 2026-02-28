@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5106/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5106/api';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -59,6 +59,9 @@ export const removeWishlistItem = (id) => api.delete(`/wishlist/${id}`);
 // Reviews
 export const getProductReviews = (productId) => api.get(`/reviews/product/${productId}`);
 export const createReview = (data) => api.post('/reviews', data);
+export const getAllReviews = () => api.get('/reviews/pending');
+export const approveReview = (id) => api.post(`/reviews/${id}/approve`);
+export const rejectReview = (id) => api.post(`/reviews/${id}/reject`);
 
 // Orders
 export const placeOrder = (data) => api.post('/orders', data);
@@ -76,6 +79,6 @@ export const createCoupon = (data) => api.post('/coupons', data);
 export const deleteCoupon = (id) => api.delete(`/coupons/${id}`);
 
 // Admin
-export const getDashboard = () => api.get('/admin/dashboard');
+export const getDashboard = () => api.get('/Admin/dashboard');
 
 export default api;

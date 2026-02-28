@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getProducts, getCategories, getWishlist, toggleWishlist } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { ProductCardSkeleton } from '../components/Skeleton';
 import ProductCard from '../components/ProductCard';
 import { FiSearch } from 'react-icons/fi';
 
@@ -21,11 +22,12 @@ export default function Products() {
 
     useEffect(() => {
         getCategories().then(r => setCategories(r.data)).catch(() => { });
-        if (user) getWishlist().then(r => setWishlist(r.data.map(w => w.productId))).catch(() => { });
+        if (user) getWishlist().then(r => setWishlist(r.data.items || r.data || []).map(w => w.productId)).catch(() => { });
     }, [user]);
 
     useEffect(() => {
         setLoading(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         const params = { page, pageSize: 12 };
         if (categoryId) params.categoryId = categoryId;
         if (search) params.search = search;
@@ -42,7 +44,10 @@ export default function Products() {
         const params = new URLSearchParams(searchParams);
         if (value) params.set(key, value);
         else params.delete(key);
-        params.delete('page');
+
+        // Reset page to 1 when filters change, UNLESS we are specifically changing the page
+        if (key !== 'page') params.delete('page');
+
         setSearchParams(params);
     };
 
@@ -84,8 +89,12 @@ export default function Products() {
                 </select>
             </div>
 
+
+            // ... inside rendering:
             {loading ? (
-                <div className="spinner-container"><div className="spinner" /></div>
+                <div className="products-grid">
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(i => <ProductCardSkeleton key={i} />)}
+                </div>
             ) : products.length === 0 ? (
                 <div className="empty-state">
                     <div className="empty-icon">🔍</div>

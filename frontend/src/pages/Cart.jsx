@@ -53,7 +53,7 @@ export default function Cart() {
                     <AnimatePresence>
                         {items.map(item => (
                             <motion.div key={item.id} className="cart-item" layout exit={{ opacity: 0, x: -100 }}>
-                                <img src={item.productImage} alt={item.productName} />
+                                <img src={item.productImage} alt={item.productName} loading="lazy" />
                                 <div className="cart-item-info">
                                     <Link to={`/products/${item.productId}`}><h3>{item.productName}</h3></Link>
                                     <div className="item-price">${item.price.toFixed(2)}</div>
