@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using backend.DTOs;
+using backend.Helpers;
 using backend.Models;
 using backend.Services;
-using System.Security.Claims;
 
 namespace backend.Controllers;
 
@@ -58,26 +58,27 @@ public class ReviewsController : ControllerBase
     [Authorize]
     public async Task<ActionResult> CreateReview(CreateReviewDto dto)
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
         
         // Anti-spam: Sanitize input
         var cleanComment = _sanitizer.SanitizeText(dto.Comment);
         if (string.IsNullOrWhiteSpace(cleanComment))
             return BadRequest(new { message = "Review comment is required and cannot be pure HTML/Links." });
 
-        var existing = await _db.Reviews.FirstOrDefaultAsync(r => r.UserId == userId && r.ProductId == dto.ProductId);
+        var existing = await _db.Reviews.FirstOrDefaultAsync(r => r.UserId == userId.Value && r.ProductId == dto.ProductId);
         if (existing != null) return BadRequest(new { message = "You already reviewed this product" });
 
         // Verified purchase check
         var paidOrderWithProduct = await _db.Orders
             .Include(o => o.OrderItems)
-            .Where(o => o.UserId == userId && (o.PaymentStatus == "Paid" || o.PaymentStatus == "COD_Delivered"))
+            .Where(o => o.UserId == userId.Value && (o.PaymentStatus == "Paid" || o.PaymentStatus == "COD_Delivered"))
             .SelectMany(o => o.OrderItems)
             .FirstOrDefaultAsync(oi => oi.ProductId == dto.ProductId);
 
         var review = new Review
         {
-            UserId = userId,
+            UserId = userId.Value,
             ProductId = dto.ProductId,
             Rating = Math.Clamp(dto.Rating, 1, 5),
             Comment = cleanComment,
@@ -106,7 +107,7 @@ public class ReviewsController : ControllerBase
         await _db.SaveChangesAsync();
         await UpdateProductRating(review.ProductId);
         
-        await _audit.LogAsync(GetUserId(), "APPROVE_REVIEW", "Review", id);
+        await _audit.LogAsync(ClaimsHelper.TryGetUserId(User) ?? 0, "APPROVE_REVIEW", "Review", id);
 
         return Ok(new { message = "Review approved" });
     }
@@ -123,7 +124,7 @@ public class ReviewsController : ControllerBase
 
         await _db.SaveChangesAsync();
         
-        await _audit.LogAsync(GetUserId(), "REJECT_REVIEW", "Review", id);
+        await _audit.LogAsync(ClaimsHelper.TryGetUserId(User) ?? 0, "REJECT_REVIEW", "Review", id);
 
         return Ok(new { message = "Review rejected" });
     }
@@ -146,7 +147,7 @@ public class ReviewsController : ControllerBase
             await UpdateProductRating(productId);
         }
 
-        await _audit.LogAsync(GetUserId(), "DELETE_REVIEW", "Review", id);
+        await _audit.LogAsync(ClaimsHelper.TryGetUserId(User) ?? 0, "DELETE_REVIEW", "Review", id);
 
         return Ok(new { message = "Review deleted" });
     }
@@ -174,5 +175,4 @@ public class ReviewsController : ControllerBase
         }
     }
 
-    private int GetUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 }

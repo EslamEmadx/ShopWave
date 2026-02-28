@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using backend.DTOs;
+using backend.Helpers;
 using backend.Models;
 using backend.Services;
 
@@ -129,7 +130,7 @@ public class AuthController : ControllerBase
     [HttpGet("profile")]
     public async Task<ActionResult> GetProfile()
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
         if (userId == null) return Unauthorized();
 
         var user = await _db.Users.FindAsync(userId);
@@ -141,7 +142,7 @@ public class AuthController : ControllerBase
     [HttpPut("profile")]
     public async Task<ActionResult> UpdateProfile(UpdateProfileDto dto)
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
         if (userId == null) return Unauthorized();
 
         var user = await _db.Users.FindAsync(userId);
@@ -156,19 +157,13 @@ public class AuthController : ControllerBase
         return Ok(new { message = "Profile updated" });
     }
 
-    private int? GetUserId()
-    {
-        var claim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-        return claim != null ? int.Parse(claim.Value) : null;
-    }
-
     // --- Address Management ---
     
     [HttpGet("addresses")]
     [Microsoft.AspNetCore.Authorization.Authorize]
     public async Task<ActionResult<IEnumerable<AddressDto>>> GetAddresses()
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
         if (userId == null) return Unauthorized();
 
         var addresses = await _db.Addresses
@@ -184,7 +179,7 @@ public class AuthController : ControllerBase
     [Microsoft.AspNetCore.Authorization.Authorize]
     public async Task<ActionResult<AddressDto>> CreateAddress(CreateAddressDto dto)
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
         if (userId == null) return Unauthorized();
 
         // If this is the first address, or IsDefault is true, manage defaults
@@ -222,7 +217,7 @@ public class AuthController : ControllerBase
     [Microsoft.AspNetCore.Authorization.Authorize]
     public async Task<ActionResult> UpdateAddress(int id, CreateAddressDto dto)
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
         if (userId == null) return Unauthorized();
 
         var address = await _db.Addresses.FirstOrDefaultAsync(a => a.Id == id && a.UserId == userId);
@@ -261,7 +256,7 @@ public class AuthController : ControllerBase
     [Microsoft.AspNetCore.Authorization.Authorize]
     public async Task<ActionResult> DeleteAddress(int id)
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
         if (userId == null) return Unauthorized();
 
         var address = await _db.Addresses.FirstOrDefaultAsync(a => a.Id == id && a.UserId == userId);

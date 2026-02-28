@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using backend.DTOs;
+using backend.Helpers;
 using backend.Models;
-using System.Security.Claims;
 
 namespace backend.Controllers;
 
@@ -19,9 +19,11 @@ public class CartController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<CartItemDto>>> GetCart()
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
         var items = await _db.CartItems
-            .Where(ci => ci.UserId == userId)
+            .Where(ci => ci.UserId == userId.Value)
             .Include(ci => ci.Product)
             .Select(ci => new CartItemDto(ci.Id, ci.ProductId, ci.Product.Name, ci.Product.ImageUrl, ci.Product.Price, ci.Quantity, ci.Product.Stock))
             .ToListAsync();
@@ -31,19 +33,21 @@ public class CartController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> AddToCart(AddToCartDto dto)
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
         var product = await _db.Products.FindAsync(dto.ProductId);
         if (product == null) return NotFound(new { message = "Product not found" });
         if (product.Stock < dto.Quantity) return BadRequest(new { message = "Not enough stock" });
 
-        var existing = await _db.CartItems.FirstOrDefaultAsync(ci => ci.UserId == userId && ci.ProductId == dto.ProductId);
+        var existing = await _db.CartItems.FirstOrDefaultAsync(ci => ci.UserId == userId.Value && ci.ProductId == dto.ProductId);
         if (existing != null)
         {
             existing.Quantity += dto.Quantity;
         }
         else
         {
-            _db.CartItems.Add(new CartItem { UserId = userId, ProductId = dto.ProductId, Quantity = dto.Quantity });
+            _db.CartItems.Add(new CartItem { UserId = userId.Value, ProductId = dto.ProductId, Quantity = dto.Quantity });
         }
 
         await _db.SaveChangesAsync();
@@ -53,7 +57,10 @@ public class CartController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> UpdateQuantity(int id, UpdateCartDto dto)
     {
-        var item = await _db.CartItems.FirstOrDefaultAsync(ci => ci.Id == id && ci.UserId == GetUserId());
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
+        var item = await _db.CartItems.FirstOrDefaultAsync(ci => ci.Id == id && ci.UserId == userId.Value);
         if (item == null) return NotFound();
 
         if (dto.Quantity <= 0)
@@ -72,7 +79,10 @@ public class CartController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> RemoveFromCart(int id)
     {
-        var item = await _db.CartItems.FirstOrDefaultAsync(ci => ci.Id == id && ci.UserId == GetUserId());
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
+        var item = await _db.CartItems.FirstOrDefaultAsync(ci => ci.Id == id && ci.UserId == userId.Value);
         if (item == null) return NotFound();
         _db.CartItems.Remove(item);
         await _db.SaveChangesAsync();
@@ -82,12 +92,12 @@ public class CartController : ControllerBase
     [HttpDelete]
     public async Task<ActionResult> ClearCart()
     {
-        var userId = GetUserId();
-        var items = await _db.CartItems.Where(ci => ci.UserId == userId).ToListAsync();
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
+        var items = await _db.CartItems.Where(ci => ci.UserId == userId.Value).ToListAsync();
         _db.CartItems.RemoveRange(items);
         await _db.SaveChangesAsync();
         return Ok(new { message = "Cart cleared" });
     }
-
-    private int GetUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 }

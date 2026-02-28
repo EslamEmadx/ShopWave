@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using backend.DTOs;
+using backend.Helpers;
 using backend.Models;
-using System.Security.Claims;
 
 namespace backend.Controllers;
 
@@ -19,9 +19,11 @@ public class WishlistController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<WishlistItemDto>>> GetWishlist()
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
         var items = await _db.WishlistItems
-            .Where(w => w.UserId == userId)
+            .Where(w => w.UserId == userId.Value)
             .Include(w => w.Product)
             .Select(w => new WishlistItemDto(w.Id, w.ProductId, w.Product.Name, w.Product.ImageUrl, w.Product.Price, w.Product.Stock))
             .ToListAsync();
@@ -31,8 +33,10 @@ public class WishlistController : ControllerBase
     [HttpPost("{productId}")]
     public async Task<ActionResult> ToggleWishlist(int productId)
     {
-        var userId = GetUserId();
-        var existing = await _db.WishlistItems.FirstOrDefaultAsync(w => w.UserId == userId && w.ProductId == productId);
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
+        var existing = await _db.WishlistItems.FirstOrDefaultAsync(w => w.UserId == userId.Value && w.ProductId == productId);
 
         if (existing != null)
         {
@@ -44,7 +48,7 @@ public class WishlistController : ControllerBase
         var product = await _db.Products.FindAsync(productId);
         if (product == null) return NotFound();
 
-        _db.WishlistItems.Add(new WishlistItem { UserId = userId, ProductId = productId });
+        _db.WishlistItems.Add(new WishlistItem { UserId = userId.Value, ProductId = productId });
         await _db.SaveChangesAsync();
         return Ok(new { message = "Added to wishlist", isWishlisted = true });
     }
@@ -52,12 +56,13 @@ public class WishlistController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> RemoveFromWishlist(int id)
     {
-        var item = await _db.WishlistItems.FirstOrDefaultAsync(w => w.Id == id && w.UserId == GetUserId());
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
+        var item = await _db.WishlistItems.FirstOrDefaultAsync(w => w.Id == id && w.UserId == userId.Value);
         if (item == null) return NotFound();
         _db.WishlistItems.Remove(item);
         await _db.SaveChangesAsync();
         return Ok(new { message = "Removed from wishlist" });
     }
-
-    private int GetUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 }

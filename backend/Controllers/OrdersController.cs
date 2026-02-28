@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using backend.DTOs;
+using backend.Helpers;
 using backend.Models;
-using System.Security.Claims;
 
 namespace backend.Controllers;
 
@@ -19,9 +19,11 @@ public class OrdersController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> PlaceOrder(CreateOrderDto dto)
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
         var cartItems = await _db.CartItems
-            .Where(ci => ci.UserId == userId)
+            .Where(ci => ci.UserId == userId.Value)
             .Include(ci => ci.Product)
             .ToListAsync();
 
@@ -55,7 +57,7 @@ public class OrdersController : ControllerBase
 
         var order = new Order
         {
-            UserId = userId,
+            UserId = userId.Value,
             TotalAmount = subtotal - discountAmount,
             ShippingAddress = dto.ShippingAddress,
             ShippingCity = dto.ShippingCity,
@@ -91,11 +93,13 @@ public class OrdersController : ControllerBase
         [FromQuery] int page = 1, 
         [FromQuery] int pageSize = 10)
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
         var isAdmin = User.IsInRole("Admin");
 
         var query = _db.Orders.AsNoTracking().AsQueryable();
-        if (!isAdmin) query = query.Where(o => o.UserId == userId);
+        if (!isAdmin) query = query.Where(o => o.UserId == userId.Value);
 
         var totalCount = await query.CountAsync();
         var orders = await query.OrderByDescending(o => o.CreatedAt)
@@ -118,7 +122,9 @@ public class OrdersController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<OrderDto>> GetOrder(int id)
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
         var isAdmin = User.IsInRole("Admin");
 
         var o = await _db.Orders
@@ -127,7 +133,7 @@ public class OrdersController : ControllerBase
             .FirstOrDefaultAsync(o => o.Id == id);
 
         if (o == null) return NotFound();
-        if (!isAdmin && o.UserId != userId) return Forbid();
+        if (!isAdmin && o.UserId != userId.Value) return Forbid();
 
         return Ok(new OrderDto(o.Id, o.TotalAmount, o.Status, o.PaymentStatus, o.ShippingAddress,
             o.ShippingCity, o.Phone, o.CouponCode, o.DiscountAmount, o.CreatedAt,
@@ -151,5 +157,4 @@ public class OrdersController : ControllerBase
         return Ok(new { message = "Status updated" });
     }
 
-    private int GetUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 }

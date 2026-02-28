@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using backend.DTOs;
+using backend.Helpers;
 using backend.Models;
 using backend.Services.Payments;
-using System.Security.Claims;
 using System.Text.Json;
 
 namespace backend.Controllers;
@@ -29,10 +29,12 @@ public class PaymentController : ControllerBase
     [HttpPost("create-checkout-session")]
     public async Task<ActionResult<CheckoutSessionDto>> CreateCheckoutSession(CreateCheckoutDto dto)
     {
-        var userId = GetUserId();
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId is null) return Unauthorized();
+
         var order = await _db.Orders
             .Include(o => o.OrderItems)
-            .FirstOrDefaultAsync(o => o.Id == dto.OrderId && o.UserId == userId);
+            .FirstOrDefaultAsync(o => o.Id == dto.OrderId && o.UserId == userId.Value);
 
         if (order == null) return NotFound();
         if (order.PaymentStatus == "Paid") return BadRequest(new { message = "Order already paid" });
@@ -117,5 +119,4 @@ public class PaymentController : ControllerBase
         return Ok();
     }
 
-    private int GetUserId() => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 }

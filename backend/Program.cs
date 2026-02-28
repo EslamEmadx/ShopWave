@@ -67,7 +67,36 @@ try
                 ValidIssuer = jwtIssuer,
                 ValidAudience = jwtAudience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-                ClockSkew = TimeSpan.FromSeconds(30)
+                ClockSkew = TimeSpan.FromSeconds(30),
+                RoleClaimType = System.Security.Claims.ClaimTypes.Role
+            };
+
+            options.Events = new JwtBearerEvents
+            {
+                OnAuthenticationFailed = context =>
+                {
+                    var correlationId = context.HttpContext.Items["CorrelationId"]?.ToString() ?? "unknown";
+                    Log.Warning("JWT authentication failed for {Path} [CorrId: {CorrelationId}]: {ErrorType} — {Message}",
+                        context.Request.Path, correlationId, context.Exception.GetType().Name, context.Exception.Message);
+                    return Task.CompletedTask;
+                },
+                OnChallenge = context =>
+                {
+                    if (!context.Response.HasStarted)
+                    {
+                        var correlationId = context.HttpContext.Items["CorrelationId"]?.ToString() ?? "unknown";
+                        Log.Information("JWT challenge issued for {Path} [CorrId: {CorrelationId}]: {Error} — {ErrorDescription}",
+                            context.Request.Path, correlationId, context.Error ?? "no_token", context.ErrorDescription ?? "none");
+                    }
+                    return Task.CompletedTask;
+                },
+                OnForbidden = context =>
+                {
+                    var correlationId = context.HttpContext.Items["CorrelationId"]?.ToString() ?? "unknown";
+                    Log.Warning("JWT forbidden for {Path} [CorrId: {CorrelationId}]: user lacks required role",
+                        context.Request.Path, correlationId);
+                    return Task.CompletedTask;
+                }
             };
         });
 
