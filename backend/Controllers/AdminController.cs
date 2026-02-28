@@ -31,7 +31,7 @@ public class AdminController : ControllerBase
         {
             totalRevenue = await _db.Orders
                 .Where(o => o.PaymentStatus == "Paid" || o.Status != "Cancelled")
-                .SumAsync(o => o.TotalAmount);
+                .SumAsync(o => (decimal?)o.TotalAmount) ?? 0;
             totalOrders = await _db.Orders.CountAsync();
             totalUsers  = await _db.Users.CountAsync();
             totalProducts = await _db.Products.CountAsync();
@@ -39,7 +39,8 @@ public class AdminController : ControllerBase
         }
         catch (Exception ex)
         {
-             _logger.LogError(ex, "Failed to load aggregate counts for dashboard.");
+            var corrId = HttpContext.Items["CorrelationId"]?.ToString() ?? "unknown";
+            _logger.LogError(ex, "Failed to load aggregate counts for dashboard. Path: {Path}, CorrId: {CorrelationId}", Request.Path, corrId);
         }
 
         // --- Recent orders ---
@@ -48,15 +49,15 @@ public class AdminController : ControllerBase
         {
             recentOrders = await _db.Orders
                 .AsNoTracking()
-                .Include(o => o.User)
                 .OrderByDescending(o => o.CreatedAt)
                 .Take(10)
-                .Select(o => new RecentOrderDto(o.Id, o.User.Username ?? "Unknown", o.TotalAmount, o.Status, o.CreatedAt))
+                .Select(o => new RecentOrderDto(o.Id, o.User != null ? o.User.Username : "Unknown", o.TotalAmount, o.Status, o.CreatedAt))
                 .ToListAsync();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to load recent orders for dashboard.");
+            var corrId = HttpContext.Items["CorrelationId"]?.ToString() ?? "unknown";
+            _logger.LogError(ex, "Failed to load recent orders for dashboard. Path: {Path}, CorrId: {CorrelationId}", Request.Path, corrId);
         }
 
         // --- Top products ---
@@ -69,8 +70,8 @@ public class AdminController : ControllerBase
                 .Select(g => new
                 {
                     ProductId = g.Key,
-                    TotalSold = g.Sum(oi => oi.Quantity),
-                    Revenue = g.Sum(oi => oi.Price * oi.Quantity)
+                    TotalSold = g.Sum(oi => (int?)oi.Quantity) ?? 0,
+                    Revenue = g.Sum(oi => (decimal?)(oi.Price * oi.Quantity)) ?? 0
                 })
                 .OrderByDescending(x => x.TotalSold)
                 .Take(5)
@@ -80,7 +81,8 @@ public class AdminController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to load top products for dashboard.");
+            var corrId = HttpContext.Items["CorrelationId"]?.ToString() ?? "unknown";
+            _logger.LogError(ex, "Failed to load top products for dashboard. Path: {Path}, CorrId: {CorrelationId}", Request.Path, corrId);
         }
 
         // --- Monthly sales ---
@@ -95,7 +97,7 @@ public class AdminController : ControllerBase
                 {
                     g.Key.Year,
                     g.Key.Month,
-                    Revenue = g.Sum(o => o.TotalAmount),
+                    Revenue = g.Sum(o => (decimal?)o.TotalAmount) ?? 0,
                     Orders  = g.Count()
                 })
                 .OrderBy(x => x.Year).ThenBy(x => x.Month)
@@ -107,7 +109,8 @@ public class AdminController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to load monthly sales for dashboard.");
+            var corrId = HttpContext.Items["CorrelationId"]?.ToString() ?? "unknown";
+            _logger.LogError(ex, "Failed to load monthly sales for dashboard. Path: {Path}, CorrId: {CorrelationId}", Request.Path, corrId);
         }
 
         // Note: Modified DashboardDto to include pendingReviews if needed, 

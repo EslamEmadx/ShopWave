@@ -136,50 +136,58 @@ export default function Admin() {
             </div>
 
             {/* Dashboard Tab */}
-            {tab === 'dashboard' && dashboard && (
-                <>
-                    <div className="stats-grid">
-                        {statCards.map((s, i) => (
-                            <motion.div key={i} className="stat-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                                <div className="stat-icon" style={{ background: s.bg, color: s.color }}>{s.icon}</div>
-                                <div className="stat-value">{s.value}</div>
-                                <div className="stat-label">{s.label}</div>
-                            </motion.div>
-                        ))}
+            {tab === 'dashboard' && (
+                !dashboard ? (
+                    <div className="card" style={{ padding: 40, textAlign: 'center' }}>
+                        <h3 style={{ color: 'var(--danger)', marginBottom: 16 }}>Failed to load dashboard</h3>
+                        <p style={{ color: 'var(--text-muted)' }}>You might not have sufficient permissions or the server is temporarily unavailable.</p>
+                        <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={loadData}>Retry Connection</button>
                     </div>
+                ) : (
+                    <>
+                        <div className="stats-grid">
+                            {statCards.map((s, i) => (
+                                <motion.div key={i} className="stat-card" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                                    <div className="stat-icon" style={{ background: s.bg, color: s.color }}>{s.icon}</div>
+                                    <div className="stat-value">{s.value}</div>
+                                    <div className="stat-label">{s.label}</div>
+                                </motion.div>
+                            ))}
+                        </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-                        <div className="card" style={{ padding: 24 }}>
-                            <h3 style={{ marginBottom: 16 }}>Recent Orders</h3>
-                            {dashboard.recentOrders?.map(o => (
-                                <div key={o.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--border-color)' }}>
-                                    <div style={{ cursor: 'pointer' }} onClick={() => handleOrderClick(o.id)}>
-                                        <div style={{ fontWeight: 600, color: 'var(--accent-primary)' }}>#{o.id} — {o.username}</div>
-                                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{o.createdAt ? new Date(o.createdAt).toLocaleDateString() : 'N/A'}</div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+                            <div className="card" style={{ padding: 24 }}>
+                                <h3 style={{ marginBottom: 16 }}>Recent Orders</h3>
+                                {dashboard.recentOrders?.map(o => (
+                                    <div key={o.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--border-color)' }}>
+                                        <div style={{ cursor: 'pointer' }} onClick={() => handleOrderClick(o.id)}>
+                                            <div style={{ fontWeight: 600, color: 'var(--accent-primary)' }}>#{o.id} — {o.username}</div>
+                                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{o.createdAt ? new Date(o.createdAt).toLocaleDateString() : 'N/A'}</div>
+                                        </div>
+                                        <div style={{ textAlign: 'right' }}>
+                                            <div style={{ fontWeight: 600 }}>${(o.totalAmount ?? o.total ?? 0).toFixed(2)}</div>
+                                            <span className={`order-status status-${(o.status || 'Pending').toLowerCase()}`} style={{ fontSize: '0.7rem' }}>{o.status}</span>
+                                        </div>
                                     </div>
-                                    <div style={{ textAlign: 'right' }}>
-                                        <div style={{ fontWeight: 600 }}>${(o.totalAmount ?? o.total ?? 0).toFixed(2)}</div>
-                                        <span className={`order-status status-${(o.status || 'Pending').toLowerCase()}`} style={{ fontSize: '0.7rem' }}>{o.status}</span>
+                                ))}
+                            </div>
+                            <div className="card" style={{ padding: 24 }}>
+                                <h3 style={{ marginBottom: 16 }}>Top Products</h3>
+                                {(dashboard?.topProducts || []).map(p => (
+                                    <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--border-color)' }}>
+                                        <img src={p.imageUrl} alt={p.name} style={{ width: 40, height: 40, borderRadius: 8, objectFit: 'cover' }} />
+                                        <div style={{ flex: 1 }}>
+                                            <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{p.name}</div>
+                                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{p.totalSold} sold</div>
+                                        </div>
+                                        <div style={{ fontWeight: 600, color: 'var(--accent-primary)' }}>${(p.revenue || 0).toFixed(2)}</div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                                {(dashboard?.topProducts?.length ?? 0) === 0 && <p style={{ color: 'var(--text-muted)' }}>No sales data yet</p>}
+                            </div>
                         </div>
-                        <div className="card" style={{ padding: 24 }}>
-                            <h3 style={{ marginBottom: 16 }}>Top Products</h3>
-                            {(dashboard?.topProducts || []).map(p => (
-                                <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--border-color)' }}>
-                                    <img src={p.imageUrl} alt={p.name} style={{ width: 40, height: 40, borderRadius: 8, objectFit: 'cover' }} />
-                                    <div style={{ flex: 1 }}>
-                                        <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{p.name}</div>
-                                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{p.totalSold} sold</div>
-                                    </div>
-                                    <div style={{ fontWeight: 600, color: 'var(--accent-primary)' }}>${(p.revenue || 0).toFixed(2)}</div>
-                                </div>
-                            ))}
-                            {(dashboard?.topProducts?.length ?? 0) === 0 && <p style={{ color: 'var(--text-muted)' }}>No sales data yet</p>}
-                        </div>
-                    </div>
-                </>
+                    </>
+                )
             )}
 
             {/* Orders Tab */}
