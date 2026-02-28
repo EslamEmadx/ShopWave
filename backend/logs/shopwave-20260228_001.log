@@ -1251,3 +1251,8 @@ Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
 2026-02-28 09:57:06.380 +02:00 [INF] HTTP GET /api/categories responded 200 in 436.8116 ms
 2026-02-28 09:57:06.474 +02:00 [INF] HTTP GET /api/products responded 200 in 525.2520 ms
 2026-02-28 09:57:06.474 +02:00 [INF] HTTP GET /api/products responded 200 in 982.0840 ms
+2026-02-28 23:57:40.483 +02:00 [INF] Starting ShopWave API...
+2026-02-28 23:57:44.688 +02:00 [INF] Now listening on: http://localhost:5106
+2026-02-28 23:57:44.696 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-02-28 23:57:44.698 +02:00 [INF] Hosting environment: Development
+2026-02-28 23:57:44.702 +02:00 [INF] Content root path: C:\Users\islam\.gemini\antigravity\scratch\ShopWave\backend
