@@ -27,11 +27,15 @@ export default function ProductDetail() {
         getProduct(id).then(r => {
             setProduct(r.data);
             getProducts({ categoryId: r.data.categoryId, pageSize: 4 }).then(rr => {
-                setRelated(rr.data.products.filter(p => p.id !== r.data.id).slice(0, 4));
+                const list = rr.data?.items ?? rr.data?.products ?? [];
+                setRelated((Array.isArray(list) ? list : []).filter(p => p.id !== r.data.id).slice(0, 4));
             });
         }).catch(() => { }).finally(() => setLoading(false));
-        getProductReviews(id).then(r => setReviews(r.data)).catch(() => { });
-        if (user) getWishlist().then(r => setWishlisted(r.data.some(w => w.productId === parseInt(id)))).catch(() => { });
+        getProductReviews(id).then(r => setReviews(Array.isArray(r.data) ? r.data : (r.data?.items ?? []))).catch(() => { });
+        if (user) getWishlist().then(r => {
+            const list = r.data?.items ?? r.data ?? [];
+            setWishlisted((Array.isArray(list) ? list : []).some(w => w.productId === parseInt(id)));
+        }).catch(() => { });
     }, [id, user]);
 
     const handleWishlist = async () => {
@@ -69,9 +73,9 @@ export default function ProductDetail() {
                     <h1>{product.name}</h1>
                     <div className="rating" style={{ fontSize: '0.9rem', marginBottom: 16 }}>
                         <span className="stars" style={{ display: 'flex', gap: 2 }}>
-                            {[1, 2, 3, 4, 5].map(s => s <= Math.round(product.rating) ? <FaStar key={s} color="#FFD700" /> : <FaRegStar key={s} color="#FFD700" />)}
+                            {[1, 2, 3, 4, 5].map(s => s <= Math.round(product.ratingAvg || 0) ? <FaStar key={s} color="#FFD700" /> : <FaRegStar key={s} color="#FFD700" />)}
                         </span>
-                        <span>{product.rating.toFixed(1)} ({product.reviewCount} reviews)</span>
+                        <span>{(product.ratingAvg || 0).toFixed(1)} ({product.reviewCount || 0} reviews)</span>
                     </div>
                     <div className="price-section">
                         <span className="current-price">${product.price.toFixed(2)}</span>

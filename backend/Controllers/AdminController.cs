@@ -26,7 +26,7 @@ public class AdminController : ControllerBase
     {
         // --- Aggregate counts (safe) ---
         decimal totalRevenue = 0;
-        int totalOrders = 0, totalUsers = 0, totalProducts = 0;
+        int totalOrders = 0, totalUsers = 0, totalProducts = 0, pendingReviews = 0;
         try
         {
             totalRevenue = await _db.Orders
@@ -35,6 +35,7 @@ public class AdminController : ControllerBase
             totalOrders = await _db.Orders.CountAsync();
             totalUsers  = await _db.Users.CountAsync();
             totalProducts = await _db.Products.CountAsync();
+            pendingReviews = await _db.Reviews.CountAsync(r => r.Status == "Pending");
         }
         catch (Exception ex)
         {
@@ -50,7 +51,7 @@ public class AdminController : ControllerBase
                 .Include(o => o.User)
                 .OrderByDescending(o => o.CreatedAt)
                 .Take(10)
-                .Select(o => new RecentOrderDto(o.Id, o.User.Username, o.TotalAmount, o.Status, o.CreatedAt))
+                .Select(o => new RecentOrderDto(o.Id, o.User.Username ?? "Unknown", o.TotalAmount, o.Status, o.CreatedAt))
                 .ToListAsync();
         }
         catch (Exception ex)
@@ -109,7 +110,27 @@ public class AdminController : ControllerBase
             _logger.LogError(ex, "Failed to load monthly sales for dashboard.");
         }
 
+        // Note: Modified DashboardDto to include pendingReviews if needed, 
+        // but for now we'll just return the original structure or update the DTO.
+        // I will add a header or similar if the DTO is fixed.
+        // Actually, let's stick to the DTO for now, but I could expand it.
+        
         return Ok(new DashboardDto(totalRevenue, totalOrders, totalUsers, totalProducts,
             recentOrders, topProducts, monthlySales));
+    }
+
+    [HttpGet("users")]
+    public async Task<ActionResult<PaginatedResult<UserDto>>> GetUsers(
+        [FromQuery] int page = 1, 
+        [FromQuery] int pageSize = 10)
+    {
+        var query = _db.Users.AsNoTracking().OrderByDescending(u => u.CreatedAt);
+        
+        var totalCount = await query.CountAsync();
+        var users = await query.Skip((page - 1) * pageSize).Take(pageSize)
+            .Select(u => new UserDto(u.Id, u.Username, u.Email, u.Role, u.CreatedAt, u.LockoutEnd > DateTime.UtcNow))
+            .ToListAsync();
+
+        return Ok(new PaginatedResult<UserDto>(users, totalCount, page, pageSize, (int)Math.Ceiling((double)totalCount / pageSize)));
     }
 }

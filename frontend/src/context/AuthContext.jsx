@@ -15,9 +15,13 @@ export function AuthProvider({ children }) {
     }, []);
 
     const loginUser = (userData) => {
+        const normalizedUser = {
+            ...userData,
+            role: userData.role || (Array.isArray(userData.roles) ? userData.roles[0] : userData.roles) || 'Customer'
+        };
         localStorage.setItem('accessToken', userData.accessToken);
-        localStorage.setItem('user', JSON.stringify(userData));
-        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(normalizedUser));
+        setUser(normalizedUser);
     };
 
     const logout = () => {

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { FiHeart, FiStar, FiShoppingCart } from 'react-icons/fi';
-import { FaHeart } from 'react-icons/fa';
+import { FiHeart, FiShoppingCart } from 'react-icons/fi';
+import { FaHeart, FaStar, FaRegStar } from 'react-icons/fa';
 import { useCart } from '../context/CartContext';
 import { motion } from 'framer-motion';
 
@@ -31,12 +31,33 @@ export default function ProductCard({ product, wishlisted, onToggleWishlist }) {
                 <div className="category-tag">{product.categoryName}</div>
                 <h3 className="product-name">{product.name}</h3>
                 <div className="price-row">
-                    <span className="price">${product.price.toFixed(2)}</span>
-                    {product.oldPrice && <span className="old-price">${product.oldPrice.toFixed(2)}</span>}
+                    <span className="price">${(product.price || 0).toFixed(2)}</span>
+                    {product.oldPrice && <span className="old-price">${(product.oldPrice || 0).toFixed(2)}</span>}
                 </div>
-                <div className="rating">
-                    <span className="stars"><FiStar /> {product.rating.toFixed(1)}</span>
-                    <span>({product.reviewCount})</span>
+
+                {/* Real Reviews UI (Option A) */}
+                <div className="product-card-reviews" style={{ marginTop: 8, minHeight: 46 }}>
+                    {(product.reviewCount || 0) > 0 ? (
+                        <div className="rating-active">
+                            <div style={{ display: 'flex', gap: 2, color: '#FFD700', marginBottom: 4 }}>
+                                {[1, 2, 3, 4, 5].map(s => (
+                                    s <= Math.round(product.ratingAvg || 0) ? <FaStar key={s} size={14} /> : <FaRegStar key={s} size={14} />
+                                ))}
+                                <span style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', marginLeft: 4, fontWeight: 600 }}>({(product.ratingAvg || 0).toFixed(1)})</span>
+                            </div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>({product.reviewCount} reviews)</div>
+                        </div>
+                    ) : (
+                        <div className="rating-empty">
+                            <div style={{ display: 'flex', gap: 2, color: 'var(--text-muted)', opacity: 0.5, marginBottom: 2 }}>
+                                {[1, 2, 3, 4, 5].map(s => <FaRegStar key={s} size={14} />)}
+                            </div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.2 }}>
+                                No reviews yet<br />
+                                <span style={{ color: 'var(--accent-primary)', fontSize: '0.7rem', fontWeight: 600 }}>Be the first to review</span>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <button
                     className="add-cart-btn"

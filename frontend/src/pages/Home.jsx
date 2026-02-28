@@ -13,9 +13,12 @@ export default function Home() {
     const { user } = useAuth();
 
     useEffect(() => {
-        getProducts({ featured: true, pageSize: 8 }).then(r => setFeatured(r.data.products)).catch(() => { });
-        getCategories().then(r => setCategories(r.data)).catch(() => { });
-        if (user) getWishlist().then(r => setWishlist(r.data.map(w => w.productId))).catch(() => { });
+        getProducts({ featured: true, pageSize: 8 }).then(r => setFeatured(r.data?.items ?? r.data?.products ?? [])).catch(() => { });
+        getCategories().then(r => setCategories(r.data?.items ?? r.data ?? [])).catch(() => { });
+        if (user) getWishlist().then(r => {
+            const list = r.data?.items ?? r.data ?? [];
+            setWishlist((Array.isArray(list) ? list : []).map(w => w.productId));
+        }).catch(() => { });
     }, [user]);
 
     const handleWishlist = async (productId) => {

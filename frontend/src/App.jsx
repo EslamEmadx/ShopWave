@@ -25,9 +25,11 @@ function ProtectedRoute({ children, adminOnly }) {
     return children;
 }
 
+import ErrorBoundary from './components/ErrorBoundary';
+
 function AppRoutes() {
     return (
-        <>
+        <ErrorBoundary>
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
@@ -43,7 +45,7 @@ function AppRoutes() {
                 <Route path="/admin" element={<ProtectedRoute adminOnly><Admin /></ProtectedRoute>} />
             </Routes>
             <Footer />
-        </>
+        </ErrorBoundary>
     );
 }
 

@@ -9,7 +9,7 @@ export default function Orders() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getOrders().then(r => setOrders(r.data)).catch(() => { }).finally(() => setLoading(false));
+        getOrders().then(r => setOrders(r.data.items ?? [])).catch(() => { }).finally(() => setLoading(false));
     }, []);
 
     if (loading) return <div className="page container"><div className="spinner-container"><div className="spinner" /></div></div>;
@@ -17,7 +17,7 @@ export default function Orders() {
     return (
         <div className="page container">
             <div className="page-header"><h1 className="page-title">My Orders</h1></div>
-            {orders.length === 0 ? (
+            {(orders || []).length === 0 ? (
                 <div className="empty-state">
                     <div className="empty-icon"><FiPackage /></div>
                     <h3>No orders yet</h3>
@@ -25,22 +25,22 @@ export default function Orders() {
                     <Link to="/products" className="btn btn-primary">Start Shopping</Link>
                 </div>
             ) : (
-                orders.map(order => (
+                (orders || []).map(order => (
                     <motion.div key={order.id} className="order-card" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
                         <div className="order-header">
                             <div>
                                 <span className="order-id">Order #{order.id}</span>
                                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginTop: 4 }}>
-                                    {new Date(order.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                    {order.createdAt ? new Date(order.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}
                                 </div>
                             </div>
                             <div style={{ textAlign: 'right' }}>
-                                <span className={`order-status status-${order.status.toLowerCase()}`}>{order.status}</span>
-                                <div style={{ fontWeight: 700, fontSize: '1.1rem', marginTop: 8 }}>${order.totalAmount.toFixed(2)}</div>
+                                <span className={`order-status status-${(order.status || 'Pending').toLowerCase()}`}>{order.status}</span>
+                                <div style={{ fontWeight: 700, fontSize: '1.1rem', marginTop: 8 }}>${(order.totalAmount || 0).toFixed(2)}</div>
                             </div>
                         </div>
                         <div className="order-items-list">
-                            {order.items.map(item => (
+                            {(order.items || []).map(item => (
                                 <div key={item.id} className="order-item-row">
                                     <img src={item.productImage} alt={item.productName} />
                                     <div style={{ flex: 1 }}>

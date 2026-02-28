@@ -16,29 +16,45 @@ public class ProductsController : ControllerBase
     public ProductsController(AppDbContext db) => _db = db;
 
     [HttpGet]
-    public async Task<ActionResult> GetProducts(
+    public async Task<ActionResult<PaginatedResult<ProductDto>>> GetProducts(
         [FromQuery] string? search,
         [FromQuery] int? categoryId,
+        [FromQuery] string? brand,
+        [FromQuery] string? size,
+        [FromQuery] string? color,
         [FromQuery] string? sort,
         [FromQuery] bool? featured,
         [FromQuery] decimal? minPrice,
         [FromQuery] decimal? maxPrice,
+        [FromQuery] bool? inStock,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 12)
     {
         var query = _db.Products.AsNoTracking().Include(p => p.Category).AsQueryable();
 
+        // Basic Filters
         if (!string.IsNullOrEmpty(search))
-            query = query.Where(p => p.Name.Contains(search) || p.Description.Contains(search));
+            query = query.Where(p => p.Name.Contains(search) || p.Description.Contains(search) || (p.Brand != null && p.Brand.Contains(search)));
         if (categoryId.HasValue)
             query = query.Where(p => p.CategoryId == categoryId);
+        if (!string.IsNullOrEmpty(brand))
+            query = query.Where(p => p.Brand == brand);
         if (featured.HasValue)
             query = query.Where(p => p.IsFeatured == featured);
         if (minPrice.HasValue)
             query = query.Where(p => p.Price >= minPrice);
         if (maxPrice.HasValue)
             query = query.Where(p => p.Price <= maxPrice);
+        if (inStock.HasValue && inStock.Value)
+            query = query.Where(p => p.Stock > 0 || p.Variants.Any(v => v.Stock > 0));
 
+        // Variant Filters
+        if (!string.IsNullOrEmpty(size))
+            query = query.Where(p => p.Variants.Any(v => v.Size == size));
+        if (!string.IsNullOrEmpty(color))
+            query = query.Where(p => p.Variants.Any(v => v.Color == color));
+
+        // Sorting
         query = sort switch
         {
             "price_asc" => query.OrderBy(p => p.Price),
@@ -46,16 +62,28 @@ public class ProductsController : ControllerBase
             "rating" => query.OrderByDescending(p => p.Rating),
             "newest" => query.OrderByDescending(p => p.CreatedAt),
             "name" => query.OrderBy(p => p.Name),
+            "best_selling" => query.OrderByDescending(p => p.OrderItems.Sum(oi => oi.Quantity)),
             _ => query.OrderByDescending(p => p.IsFeatured).ThenByDescending(p => p.CreatedAt)
         };
 
         var totalCount = await query.CountAsync();
         var products = await query.Skip((page - 1) * pageSize).Take(pageSize)
-            .Select(p => new ProductDto(p.Id, p.Name, p.Description, p.Price, p.OldPrice,
-                p.ImageUrl, p.Stock, p.Rating, p.ReviewCount, p.IsFeatured, p.CategoryId, p.Category.Name))
+            .Select(p => new ProductDto(
+                p.Id, 
+                p.Name, 
+                p.Description, 
+                p.Price, 
+                p.OldPrice,
+                p.ImageUrl, 
+                p.Stock, 
+                p.Reviews.Where(r => r.Status == "Approved").Any() ? (decimal)p.Reviews.Where(r => r.Status == "Approved").Average(r => r.Rating) : 0m, 
+                p.Reviews.Count(r => r.Status == "Approved"), 
+                p.IsFeatured, 
+                p.CategoryId, 
+                p.Category.Name))
             .ToListAsync();
 
-        return Ok(new { products, totalCount, page, pageSize, totalPages = (int)Math.Ceiling((double)totalCount / pageSize) });
+        return Ok(new PaginatedResult<ProductDto>(products, totalCount, page, pageSize, (int)Math.Ceiling((double)totalCount / pageSize)));
     }
 
     [HttpGet("{id}")]
@@ -64,8 +92,19 @@ public class ProductsController : ControllerBase
         var p = await _db.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == id);
         if (p == null) return NotFound();
 
-        return Ok(new ProductDto(p.Id, p.Name, p.Description, p.Price, p.OldPrice,
-            p.ImageUrl, p.Stock, p.Rating, p.ReviewCount, p.IsFeatured, p.CategoryId, p.Category.Name));
+        return Ok(new ProductDto(
+            p.Id, 
+            p.Name, 
+            p.Description, 
+            p.Price, 
+            p.OldPrice,
+            p.ImageUrl, 
+            p.Stock, 
+            p.Reviews.Where(r => r.Status == "Approved").Any() ? (decimal)p.Reviews.Where(r => r.Status == "Approved").Average(r => r.Rating) : 0, 
+            p.Reviews.Count(r => r.Status == "Approved"), 
+            p.IsFeatured, 
+            p.CategoryId, 
+            p.Category.Name));
     }
 
     [HttpPost]
@@ -89,8 +128,19 @@ public class ProductsController : ControllerBase
 
         var p = await _db.Products.Include(p => p.Category).FirstAsync(p => p.Id == product.Id);
         return CreatedAtAction(nameof(GetProduct), new { id = p.Id },
-            new ProductDto(p.Id, p.Name, p.Description, p.Price, p.OldPrice,
-                p.ImageUrl, p.Stock, p.Rating, p.ReviewCount, p.IsFeatured, p.CategoryId, p.Category.Name));
+            new ProductDto(
+                p.Id, 
+                p.Name, 
+                p.Description, 
+                p.Price, 
+                p.OldPrice,
+                p.ImageUrl, 
+                p.Stock, 
+                p.Reviews.Where(r => r.Status == "Approved").Any() ? (decimal)p.Reviews.Where(r => r.Status == "Approved").Average(r => r.Rating) : 0m, 
+                p.Reviews.Count(r => r.Status == "Approved"), 
+                p.IsFeatured, 
+                p.CategoryId, 
+                p.Category.Name));
     }
 
     [HttpPut("{id}")]

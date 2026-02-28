@@ -19,8 +19,8 @@ export function CartProvider({ children }) {
         try {
             setLoading(true);
             const { data } = await fetchCart();
-            setItems(data);
-        } catch (e) { /* silent */ }
+            setItems(data?.items ?? data ?? []);
+        } catch (e) { console.error("Cart load failed", e); }
         finally { setLoading(false); }
     };
 
@@ -57,8 +57,9 @@ export function CartProvider({ children }) {
         } catch (e) { /* silent */ }
     };
 
-    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const count = items.reduce((sum, item) => sum + item.quantity, 0);
+    const safeItems = Array.isArray(items) ? items : [];
+    const total = safeItems.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 0), 0);
+    const count = safeItems.reduce((sum, item) => sum + (item.quantity || 0), 0);
 
     return (
         <CartContext.Provider value={{ items, loading, addToCart, updateQuantity, removeItem, clearAll, total, count, loadCart }}>

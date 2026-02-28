@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getDashboard, getOrders, updateOrderStatus, getProducts, createProduct, deleteProduct, getCoupons, createCoupon, deleteCoupon, getCategories } from '../services/api';
-import { FiDollarSign, FiShoppingBag, FiUsers, FiPackage, FiPlus, FiTrash2, FiEdit } from 'react-icons/fi';
+import { getDashboard, getOrders, getOrder, updateOrderStatus, getProducts, createProduct, deleteProduct, getCoupons, createCoupon, deleteCoupon, getCategories } from '../services/api';
+import { FiDollarSign, FiShoppingBag, FiUsers, FiPackage, FiPlus, FiTrash2, FiEdit, FiEye, FiClock, FiMapPin, FiPhone } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 
@@ -14,6 +14,8 @@ export default function Admin() {
     const [showProductModal, setShowProductModal] = useState(false);
     const [showCouponModal, setShowCouponModal] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const [orderDetailsLoading, setOrderDetailsLoading] = useState(false);
 
     const [productForm, setProductForm] = useState({ name: '', description: '', price: '', oldPrice: '', imageUrl: '', stock: '', categoryId: '', isFeatured: false });
     const [couponForm, setCouponForm] = useState({ code: '', discountPercent: '', maxDiscount: '', minOrderAmount: '', usageLimit: '100', expiresAt: '' });
@@ -28,10 +30,12 @@ export default function Admin() {
         try {
             const [d, o, p, c] = await Promise.all([getDashboard(), getOrders(), getProducts({ pageSize: 100 }), getCoupons()]);
             setDashboard(d.data);
-            setOrders(o.data);
-            setProducts(p.data.products);
-            setCoupons(c.data);
-        } catch (e) { /* silent */ }
+            setOrders(o.data?.items ?? o.data ?? []);
+            setProducts(p.data?.items ?? p.data ?? []);
+            setCoupons(c.data?.items ?? c.data ?? []);
+        } catch (e) {
+            console.error("Failed to load admin data", e);
+        }
         finally { setLoading(false); }
     };
 
@@ -39,8 +43,32 @@ export default function Admin() {
         try {
             await updateOrderStatus(orderId, { status });
             setOrders(orders.map(o => o.id === orderId ? { ...o, status } : o));
+            if (selectedOrder && selectedOrder.id === orderId) {
+                setSelectedOrder({ ...selectedOrder, status });
+            }
             toast.success('Status updated');
         } catch (e) { toast.error('Failed'); }
+    };
+
+    const handleOrderClick = async (orderId) => {
+        setOrderDetailsLoading(true);
+        setSelectedOrder({ id: orderId, loading: true }); // Show ghost state
+        try {
+            const res = await getOrder(orderId);
+            const data = res.data;
+            if (data) {
+                // Defensive normalization
+                data.items = data.items || data.orderItems || [];
+                data.statusHistory = data.statusHistory || [];
+            }
+            setSelectedOrder(data);
+        } catch (e) {
+            console.error("Failed to load order details", e);
+            toast.error('Failed to load order details');
+            setSelectedOrder(null);
+        } finally {
+            setOrderDetailsLoading(false);
+        }
     };
 
     const handleCreateProduct = async (e) => {
@@ -111,30 +139,30 @@ export default function Admin() {
                             <h3 style={{ marginBottom: 16 }}>Recent Orders</h3>
                             {dashboard.recentOrders?.map(o => (
                                 <div key={o.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--border-color)' }}>
-                                    <div>
-                                        <div style={{ fontWeight: 600 }}>#{o.id} — {o.username}</div>
-                                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{new Date(o.date).toLocaleDateString()}</div>
+                                    <div style={{ cursor: 'pointer' }} onClick={() => handleOrderClick(o.id)}>
+                                        <div style={{ fontWeight: 600, color: 'var(--accent-primary)' }}>#{o.id} — {o.username}</div>
+                                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{o.createdAt ? new Date(o.createdAt).toLocaleDateString() : 'N/A'}</div>
                                     </div>
                                     <div style={{ textAlign: 'right' }}>
-                                        <div style={{ fontWeight: 600 }}>${o.total.toFixed(2)}</div>
-                                        <span className={`order-status status-${o.status.toLowerCase()}`} style={{ fontSize: '0.7rem' }}>{o.status}</span>
+                                        <div style={{ fontWeight: 600 }}>${(o.totalAmount ?? o.total ?? 0).toFixed(2)}</div>
+                                        <span className={`order-status status-${(o.status || 'Pending').toLowerCase()}`} style={{ fontSize: '0.7rem' }}>{o.status}</span>
                                     </div>
                                 </div>
                             ))}
                         </div>
                         <div className="card" style={{ padding: 24 }}>
                             <h3 style={{ marginBottom: 16 }}>Top Products</h3>
-                            {dashboard.topProducts?.map(p => (
+                            {(dashboard?.topProducts || []).map(p => (
                                 <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--border-color)' }}>
                                     <img src={p.imageUrl} alt={p.name} style={{ width: 40, height: 40, borderRadius: 8, objectFit: 'cover' }} />
                                     <div style={{ flex: 1 }}>
                                         <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{p.name}</div>
                                         <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{p.totalSold} sold</div>
                                     </div>
-                                    <div style={{ fontWeight: 600, color: 'var(--accent-primary)' }}>${p.revenue.toFixed(2)}</div>
+                                    <div style={{ fontWeight: 600, color: 'var(--accent-primary)' }}>${(p.revenue || 0).toFixed(2)}</div>
                                 </div>
                             ))}
-                            {(!dashboard.topProducts || dashboard.topProducts.length === 0) && <p style={{ color: 'var(--text-muted)' }}>No sales data yet</p>}
+                            {(dashboard?.topProducts?.length ?? 0) === 0 && <p style={{ color: 'var(--text-muted)' }}>No sales data yet</p>}
                         </div>
                     </div>
                 </>
@@ -145,9 +173,9 @@ export default function Admin() {
                 <table className="admin-table">
                     <thead><tr><th>ID</th><th>Date</th><th>Total</th><th>Status</th><th>Payment</th><th>Action</th></tr></thead>
                     <tbody>
-                        {orders.map(o => (
-                            <tr key={o.id}>
-                                <td>#{o.id}</td>
+                        {(orders || []).map(o => (
+                            <tr key={o.id} style={{ cursor: 'pointer' }} onClick={() => handleOrderClick(o.id)}>
+                                <td><span style={{ color: 'var(--accent-primary)', fontWeight: 600 }}>#{o.id}</span></td>
                                 <td>{new Date(o.createdAt).toLocaleDateString()}</td>
                                 <td style={{ fontWeight: 600 }}>${o.totalAmount.toFixed(2)}</td>
                                 <td><span className={`order-status status-${o.status.toLowerCase()}`}>{o.status}</span></td>
@@ -172,7 +200,7 @@ export default function Admin() {
                     <table className="admin-table">
                         <thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Stock</th><th>Category</th><th>Action</th></tr></thead>
                         <tbody>
-                            {products.map(p => (
+                            {(products || []).map(p => (
                                 <tr key={p.id}>
                                     <td><img src={p.imageUrl} alt="" style={{ width: 40, height: 40, borderRadius: 6, objectFit: 'cover' }} /></td>
                                     <td style={{ fontWeight: 600 }}>{p.name}</td>
@@ -226,7 +254,7 @@ export default function Admin() {
                     <table className="admin-table">
                         <thead><tr><th>Code</th><th>Discount</th><th>Max</th><th>Min Order</th><th>Used</th><th>Expires</th><th>Action</th></tr></thead>
                         <tbody>
-                            {coupons.map(c => (
+                            {(coupons || []).map(c => (
                                 <tr key={c.id}>
                                     <td style={{ fontWeight: 700, color: 'var(--accent-primary)' }}>{c.code}</td>
                                     <td>{c.discountPercent}%</td>
@@ -264,6 +292,85 @@ export default function Admin() {
                         </div>
                     )}
                 </>
+            )}
+            {/* Order Details Modal */}
+            {selectedOrder && (
+                <div className="modal-overlay" onClick={() => setSelectedOrder(null)}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: 800 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+                            <h2>Order Details #{selectedOrder.id}</h2>
+                            <button className="btn-ghost" onClick={() => setSelectedOrder(null)}>✕</button>
+                        </div>
+
+                        {selectedOrder?.loading ? (
+                            <div className="spinner-container"><div className="spinner" /></div>
+                        ) : (
+                            <div className="order-details-body">
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
+                                    <div className="card" style={{ padding: 16 }}>
+                                        <h4 style={{ marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}><FiClock /> Info</h4>
+                                        <div style={{ fontSize: '0.9rem', marginBottom: 6 }}><strong>Date:</strong> {selectedOrder?.createdAt ? new Date(selectedOrder.createdAt).toLocaleString() : 'N/A'}</div>
+                                        <div style={{ fontSize: '0.9rem', marginBottom: 12 }}><strong>Status:</strong> <span className={`order-status status-${(selectedOrder?.status || 'Pending').toLowerCase()}`}>{selectedOrder?.status}</span></div>
+                                        <select className="filter-select" style={{ width: '100%' }} value={selectedOrder?.status} onClick={e => e.stopPropagation()} onChange={e => handleStatusUpdate(selectedOrder.id, e.target.value)}>
+                                            {['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'].map(s => <option key={s} value={s}>{s}</option>)}
+                                        </select>
+                                    </div>
+                                    <div className="card" style={{ padding: 16 }}>
+                                        <h4 style={{ marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}><FiMapPin /> Shipping</h4>
+                                        <div style={{ fontSize: '0.9rem', marginBottom: 4 }}><strong>Address:</strong> {selectedOrder?.shippingAddress || 'N/A'}</div>
+                                        <div style={{ fontSize: '0.9rem', marginBottom: 4 }}><strong>City:</strong> {selectedOrder?.shippingCity || 'N/A'}</div>
+                                        <div style={{ fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: 6 }}><FiPhone style={{ fontSize: '0.8rem' }} /> {selectedOrder?.phone || 'N/A'}</div>
+                                    </div>
+                                </div>
+
+                                <div className="card" style={{ padding: 16, marginBottom: 24 }}>
+                                    <h4 style={{ marginBottom: 16 }}>Items</h4>
+                                    <div className="order-items-list">
+                                        {(selectedOrder?.items || []).length === 0 ? <p style={{ color: 'var(--text-muted)' }}>No items found</p> : (selectedOrder?.items || []).map(item => (
+                                            <div key={item.id} className="order-item-row" style={{ padding: '8px 0', borderBottom: '1px solid var(--border-color)' }}>
+                                                <img src={item.productImage} alt="" style={{ width: 50, height: 50, borderRadius: 8 }} />
+                                                <div style={{ flex: 1 }}>
+                                                    <div style={{ fontWeight: 600 }}>{item.productName}</div>
+                                                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Qty: {item.quantity} × ${item.price?.toFixed(2)}</div>
+                                                </div>
+                                                <div style={{ fontWeight: 600 }}>${((item.price || 0) * (item.quantity || 0)).toFixed(2)}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Timeline / Status History section purely defensive */}
+                                <div className="card" style={{ padding: 16, marginBottom: 24 }}>
+                                    <h4 style={{ marginBottom: 16 }}>Status History</h4>
+                                    <div className="status-history">
+                                        {(selectedOrder?.statusHistory || []).length === 0 ? <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>No status history available</p> : (selectedOrder.statusHistory || []).map((h, i) => (
+                                            <div key={i} style={{ fontSize: '0.85rem', marginBottom: 8 }}>{h.status} - {new Date(h.date).toLocaleString()}</div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                    <div className="card" style={{ padding: 16, minWidth: 250 }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                                            <span>Subtotal</span>
+                                            <span>${((selectedOrder?.totalAmount || 0) + (selectedOrder?.discountAmount || 0)).toFixed(2)}</span>
+                                        </div>
+                                        {(selectedOrder?.discountAmount || 0) > 0 && (
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, color: 'var(--success)' }}>
+                                                <span>Discount</span>
+                                                <span>-${selectedOrder.discountAmount.toFixed(2)}</span>
+                                            </div>
+                                        )}
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 800, fontSize: '1.2rem', color: 'var(--accent-primary)', borderTop: '1px solid var(--border-color)', paddingTop: 8 }}>
+                                            <span>Total</span>
+                                            <span>${(selectedOrder?.totalAmount || 0).toFixed(2)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
             )}
         </div>
     );

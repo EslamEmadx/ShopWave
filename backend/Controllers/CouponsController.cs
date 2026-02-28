@@ -42,13 +42,24 @@ public class CouponsController : ControllerBase
 
     [HttpGet]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult<List<CouponDto>>> GetCoupons()
+    public async Task<ActionResult<PaginatedResult<CouponDto>>> GetCoupons(
+        [FromQuery] int page = 1, 
+        [FromQuery] int pageSize = 10)
     {
-        var coupons = await _db.Coupons.OrderByDescending(c => c.CreatedAt)
+        var query = _db.Coupons.AsNoTracking().OrderByDescending(c => c.CreatedAt);
+        
+        var totalCount = await query.CountAsync();
+        var coupons = await query.Skip((page - 1) * pageSize).Take(pageSize)
             .Select(c => new CouponDto(c.Id, c.Code, c.DiscountPercent, c.MaxDiscount, c.MinOrderAmount,
                 c.IsActive, c.UsageLimit, c.TimesUsed, c.ExpiresAt))
             .ToListAsync();
-        return Ok(coupons);
+
+        return Ok(new PaginatedResult<CouponDto>(
+            coupons, 
+            totalCount, 
+            page, 
+            pageSize, 
+            (int)Math.Ceiling((double)totalCount / pageSize)));
     }
 
     [HttpPost]
@@ -60,17 +71,45 @@ public class CouponsController : ControllerBase
 
         var coupon = new Coupon
         {
-            Code = dto.Code.ToUpper(),
+            Code = dto.Code.ToUpperInvariant(),
             DiscountPercent = dto.DiscountPercent,
             MaxDiscount = dto.MaxDiscount,
             MinOrderAmount = dto.MinOrderAmount,
             UsageLimit = dto.UsageLimit,
-            ExpiresAt = dto.ExpiresAt
+            ExpiresAt = dto.ExpiresAt,
+            IsActive = true
         };
 
         _db.Coupons.Add(coupon);
         await _db.SaveChangesAsync();
         return Ok(new { message = "Coupon created", coupon.Id });
+    }
+
+    [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult> UpdateCoupon(int id, UpdateCouponDto dto)
+    {
+        var coupon = await _db.Coupons.FindAsync(id);
+        if (coupon == null) return NotFound();
+
+        if (dto.Code != null)
+        {
+            if (await _db.Coupons.AnyAsync(c => c.Code == dto.Code && c.Id != id))
+                return BadRequest(new { message = "Coupon code already exists" });
+            coupon.Code = dto.Code.ToUpperInvariant();
+        }
+
+        if (dto.DiscountPercent.HasValue) coupon.DiscountPercent = dto.DiscountPercent.Value;
+        if (dto.MaxDiscount.HasValue) coupon.MaxDiscount = dto.MaxDiscount;
+        if (dto.MinOrderAmount.HasValue) coupon.MinOrderAmount = dto.MinOrderAmount;
+        if (dto.UsageLimit.HasValue) coupon.UsageLimit = dto.UsageLimit.Value;
+        if (dto.ExpiresAt.HasValue) coupon.ExpiresAt = dto.ExpiresAt;
+        if (dto.IsActive.HasValue) coupon.IsActive = dto.IsActive.Value;
+
+        coupon.UpdatedAt = DateTime.UtcNow;
+
+        await _db.SaveChangesAsync();
+        return Ok(new { message = "Coupon updated" });
     }
 
     [HttpDelete("{id}")]

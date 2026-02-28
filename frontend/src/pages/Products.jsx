@@ -33,8 +33,8 @@ export default function Products() {
         if (searchParams.get('featured')) params.featured = true;
 
         getProducts(params).then(r => {
-            setProducts(r.data.products);
-            setTotalPages(r.data.totalPages);
+            setProducts(r.data.items ?? []);
+            setTotalPages(r.data.totalPages ?? 1);
         }).catch(() => { }).finally(() => setLoading(false));
     }, [page, categoryId, search, sort, searchParams.get('featured')]);
 
