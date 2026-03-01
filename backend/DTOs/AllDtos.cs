@@ -15,7 +15,7 @@ public record LoginDto(
     [Required, EmailAddress] string Email, 
     [Required] string Password);
 
-public record AuthResponseDto(string AccessToken, string RefreshToken, string Username, string Email, string Role, int UserId);
+public record AuthResponseDto(string AccessToken, string RefreshToken, string Username, string Email, string Role, int UserId, string? ProfilePictureUrl);
 
 public record UpdateProfileDto(string? Username, string? Phone, string? Address, string? City);
 

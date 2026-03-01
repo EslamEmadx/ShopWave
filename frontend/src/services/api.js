@@ -30,6 +30,17 @@ export const login = (data) => api.post('/auth/login', data);
 export const register = (data) => api.post('/auth/register', data);
 export const getProfile = () => api.get('/auth/profile');
 export const updateProfile = (data) => api.put('/auth/profile', data);
+export const uploadAvatar = (data) => api.post('/auth/avatar', data, {
+  headers: { 'Content-Type': 'multipart/form-data' }
+});
+export const deleteAvatar = () => api.delete('/auth/avatar');
+export const getAvatarUrl = (ts) => ts ? `${API_URL}/auth/avatar?ts=${ts}` : null;
+export const resolveAvatarUrl = (url) => {
+  if (!url) return null;
+  if (url.startsWith('http')) return url;
+  const baseUrl = API_URL.endsWith('/api') ? API_URL.slice(0, -4) : API_URL;
+  return `${baseUrl}${url}`;
+};
 
 // Products
 export const getProducts = (params) => api.get('/products', { params });

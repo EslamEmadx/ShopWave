@@ -15,6 +15,11 @@ public class User
     public DateTime? LockoutEnd { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    // Profile Avatar Storage
+    public byte[]? ProfileImageBytes { get; set; }
+    public string? ProfileImageContentType { get; set; }
+    public DateTime? ProfileImageUpdatedAt { get; set; }
+
     // Navigation properties
     public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
     public ICollection<WishlistItem> WishlistItems { get; set; } = new List<WishlistItem>();

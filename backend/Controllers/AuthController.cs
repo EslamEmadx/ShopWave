@@ -45,7 +45,8 @@ public class AuthController : ControllerBase
         _db.RefreshTokens.Add(refreshToken);
         await _db.SaveChangesAsync();
 
-        return Ok(new AuthResponseDto(token, refreshToken.Token, user.Username, user.Email, user.Role, user.Id));
+        var profilePictureUrl = user.ProfileImageUpdatedAt != null ? $"/api/users/{user.Id}/avatar?v={user.ProfileImageUpdatedAt.Value.Ticks}" : null;
+        return Ok(new AuthResponseDto(token, refreshToken.Token, user.Username, user.Email, user.Role, user.Id, profilePictureUrl));
     }
 
     [HttpPost("login")]
@@ -77,7 +78,8 @@ public class AuthController : ControllerBase
         _db.RefreshTokens.Add(refreshToken);
         await _db.SaveChangesAsync();
 
-        return Ok(new AuthResponseDto(token, refreshToken.Token, user.Username, user.Email, user.Role, user.Id));
+        var profilePictureUrl = user.ProfileImageUpdatedAt != null ? $"/api/users/{user.Id}/avatar?v={user.ProfileImageUpdatedAt.Value.Ticks}" : null;
+        return Ok(new AuthResponseDto(token, refreshToken.Token, user.Username, user.Email, user.Role, user.Id, profilePictureUrl));
     }
 
     [HttpPost("refresh")]
@@ -112,7 +114,8 @@ public class AuthController : ControllerBase
         _db.RefreshTokens.Add(newRefreshToken);
         await _db.SaveChangesAsync();
 
-        return Ok(new AuthResponseDto(token, newRefreshToken.Token, user.Username, user.Email, user.Role, user.Id));
+        var profilePictureUrl = user.ProfileImageUpdatedAt != null ? $"/api/users/{user.Id}/avatar?v={user.ProfileImageUpdatedAt.Value.Ticks}" : null;
+        return Ok(new AuthResponseDto(token, newRefreshToken.Token, user.Username, user.Email, user.Role, user.Id, profilePictureUrl));
     }
 
     [HttpPost("revoke")]
@@ -136,7 +139,68 @@ public class AuthController : ControllerBase
         var user = await _db.Users.FindAsync(userId);
         if (user == null) return NotFound();
 
-        return Ok(new { user.Id, user.Username, user.Email, user.Phone, user.Address, user.City, user.Role, user.CreatedAt });
+        var profilePictureUrl = user.ProfileImageUpdatedAt != null ? $"/api/users/{user.Id}/avatar?v={user.ProfileImageUpdatedAt.Value.Ticks}" : null;
+        return Ok(new { user.Id, user.Username, user.Email, user.Phone, user.Address, user.City, user.Role, user.CreatedAt, profilePictureUrl });
+    }
+
+    [HttpPost("avatar")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
+    public async Task<ActionResult> UploadAvatar(IFormFile file)
+    {
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId == null) return Unauthorized();
+
+        if (file == null || file.Length == 0) return BadRequest(new { message = "No file uploaded" });
+        if (file.Length > 1 * 1024 * 1024) return BadRequest(new { message = "File size exceeds 1MB limit" });
+
+        var allowedTypes = new[] { "image/jpeg", "image/png", "image/webp" };
+        if (!allowedTypes.Contains(file.ContentType)) return BadRequest(new { message = "Invalid file type (JPEG, PNG, WEBP)" });
+
+        var user = await _db.Users.FindAsync(userId);
+        if (user == null) return NotFound();
+
+        using var memoryStream = new MemoryStream();
+        await file.CopyToAsync(memoryStream);
+
+        user.ProfileImageBytes = memoryStream.ToArray();
+        user.ProfileImageContentType = file.ContentType;
+        user.ProfileImageUpdatedAt = DateTime.UtcNow;
+
+        await _db.SaveChangesAsync();
+
+        var avatarUrl = $"/api/users/{user.Id}/avatar?v={user.ProfileImageUpdatedAt.Value.Ticks}";
+        return Ok(new { profilePictureUrl = avatarUrl, updatedAt = user.ProfileImageUpdatedAt });
+    }
+
+    [HttpGet("/api/users/{id}/avatar")]
+    [Microsoft.AspNetCore.Authorization.AllowAnonymous]
+    public async Task<ActionResult> GetAvatar(int id)
+    {
+        var user = await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+        if (user == null || user.ProfileImageBytes == null || user.ProfileImageContentType == null)
+            return NotFound();
+
+        Response.Headers["Cache-Control"] = "public,max-age=60";
+        return File(user.ProfileImageBytes, user.ProfileImageContentType);
+    }
+
+    [HttpDelete("avatar")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
+    public async Task<ActionResult> DeleteAvatar()
+    {
+        var userId = ClaimsHelper.TryGetUserId(User);
+        if (userId == null) return Unauthorized();
+
+        var user = await _db.Users.FindAsync(userId);
+        if (user == null) return NotFound();
+
+        user.ProfileImageBytes = null;
+        user.ProfileImageContentType = null;
+        user.ProfileImageUpdatedAt = null;
+
+        await _db.SaveChangesAsync();
+
+        return Ok(new { profilePictureUrl = (string?)null, message = "Avatar removed" });
     }
 
     [HttpPut("profile")]
